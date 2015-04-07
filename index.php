@@ -52,19 +52,16 @@
             <section id="footer">
                 <div class="container">
                     <header class="major">
-                        <h2>Fill out the information</h2>
+                        <h2>Choose either option</h2>
                     </header>
                     <form method="post" action="infoHere.php" id="form">
                         <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><input type="text" name="Firstname" id="fname" placeholder="First Name" /></div>
-                            <div class="6u$ 12u$(xsmall)"><input type="text" name="Lastname" id="lname" placeholder="Last Name" /></div>
-                            <div class="6u 12u$(xsmall)"><input type="email" name="Email" id="email" placeholder="Email" /></div>
-                            <div class="6u 12u$(xsmall)"><input type="text" name="PassWord" id="pw" placeholder="Pass Word" /></div>
-                            
-                            
-                            <div class="12u$">
+                            <div class="12u$ 12u$">
                                 <ul class="actions">
-                                    <li><input type="submit" value="Next" class="special" /></li>
+                                   <a href=Login.php onClick=”javascript :history.back(-1);”>Login</a>
+                                </ul>
+                                <ul class="actions">
+                                    <a href=Register.html onClick=”javascript :history.back(-1);”>Register</a>
                                 </ul>
                             </div>
                         </div>
