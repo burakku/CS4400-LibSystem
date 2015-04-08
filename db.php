@@ -5,18 +5,44 @@
 	$db_password = "123456";
 	$db_name = "lib_system";
 
-	$connection = mysqli_connect($host, $db_username, $db_password) or die("Unable to connect");;
-	//mysqli_select_db($db) or die("Unable to select database");
+	$connection = mysqli_connect($host, $db_username, $db_password, $db_name);
+	if(mysqli_connect_errno())
+	{
+		die("Database connection failed: " . mysqli_connect_error() . " (" . mysqli_connect_errno() . ")");
+	}
 
 
 	function doQuery($query)
 	{
-		$result = mysqli_query($database, $query);
+		$result = mysqli_query($connection, $query);
 		if(!$result)
 		{
-			$error = 'Invalid query: ' . mysql_error();
+			$error = 'Invalid query: ';
 			die($error);
 		}
 		return $result;
+	}
+
+	function add_user($username, $password)
+	{
+		$result = doQuery("
+			SELECT username
+			FROM user
+			WHERE username = $username");
+
+		if(!$result)
+		{
+			echo "Query Error";
+		}
+		$user_result = mysqli_fetch_array($user_result);
+
+		if($result['username'] != null)
+		{
+			return false;
+		}
+		doQuery("
+			INSERT INTO user (username, password)
+			VALUES ($username, $password);");
+		mysqli_close($connection);
 	}
 ?>

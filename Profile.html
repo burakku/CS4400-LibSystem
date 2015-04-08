@@ -26,7 +26,7 @@
                 </header>
                 <div class="container">
                     <h1>Create Profile</h1>
-                    <form method="post" action="NEXT" id="form">
+                    <form method="post" action="SearchBook.html" id="form">
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)"><input type="text" name="Firstname" id="fname" placeholder="First Name" /></div>
                             <div class="6u$ 12u$(xsmall)"><input type="text" name="Lastname" id="lname" placeholder="Last Name" /></div>
@@ -39,9 +39,12 @@
                             </select>
                             </div>
                             <div class="6u 12u$(xsmall)"><input type="email" name="Email" id="email" placeholder="Email" /></div>
-                            <div class="6u 12u$(xsmall)"><input type="text" name="FacultyOrNot" id="pw" placeholder="Are you faculty member?" /></div>
+                            <div class="6u 12u$(xsmall)"><select id='mySelect'>
+                                <option value='Question'>Are you faculty member?</option>
+                                <option value='1'>Yes</option>
+                                <option value='2'>No</option>
+                            </select></div>
                             <div class="6u 12u$(xsmall)"><input type="text" name="address" id="pw" placeholder="Address" /></div>
-                            <!-- <div class="6u 12u$(xsmall)"><input type="text" name="department" id="pw" placeholder="Associated Department" /></div> -->
                             <div class="6u 12u$(xsmall)">
                                 <select id='mySelect'>
                                 <option value='Question'>Associated Department</option>
