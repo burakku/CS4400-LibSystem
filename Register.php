@@ -23,9 +23,9 @@
             $password = $_POST['password'];
             $flag = $db->add_user($username, $password);
             if($flag)
-                header('Location: Profile.html');
-            else
                 header('Location: Login.php');
+            else
+                header('Location: Register.php');
         }
     }
 ?>

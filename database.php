@@ -43,7 +43,20 @@
 
 			$this->doQuery("
 				INSERT INTO user (username, password)
-				VALUES ($username, $password);");
+				VALUES ('$username', '$password');");
+            return true;
 		}
+
+        function login($username, $password)
+        {
+            $result = $this->doQuery("
+            SELECT username
+            FROM user
+            WHERE username = '$username' AND Password = '$password'");
+
+            if($result == $username)
+                return true;
+            return false;
+        }
 	}
 ?>
