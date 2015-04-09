@@ -1,10 +1,9 @@
 <?php
-    require_once('func.php');
-    require_once('db.php');
+    require_once('init.php');
 
     $username = $password = $name_err = $pass_err = $match_err = "";
     if($_SERVER["REQUEST_METHOD"] == "POST")
-        {
+    {
         if(empty($_POST['username']))
         {
             $name_err = "* Username is required";
@@ -18,6 +17,14 @@
             $username = $_POST['username'];
             $password = $_POST['password'];
         }
+        $flag = $db->login($username, $password);
+        if($flag)
+        {
+            header('Location: Profile.html');
+        }
+        else
+            header('Location: Login.php');
+
     }
 ?>
 

@@ -1,10 +1,9 @@
 <?php 
-    require_once('func.php');
-    require_once('db.php');
+    require_once('init.php');
 
-    $username = $password = $re_password= $name_err = $pass_err = $re_pass_err= $match_err = "";
+    $username = $password = $re_password= $name_err = $pass_err = $re_pass_err = $match_err = "";
     if($_SERVER["REQUEST_METHOD"] == "POST")
-        {
+    {
         if(empty($_POST['username']))
         {
             $name_err = "* Username is required";
@@ -15,11 +14,18 @@
         }
         if (empty($_POST['re_password']))
             $re_pass_err = "* Please re-enter password";
-        
-        if(isset($_POST['username']) && isset($_POST['password']))
+        if (!empty($_POST['re_password']) && $_POST['password'] != $_POST['re_password']) {
+            $match_err = "Please comfirm the password.";
+        }
+        if($_POST['username'] && $_POST['password'] && $_POST['password'] == $_POST['re_password'])
         {
             $username = $_POST['username'];
             $password = $_POST['password'];
+            $flag = $db->add_user($username, $password);
+            if($flag)
+                header('Location: Login.php');
+            else
+                header('Location: Register.php');
         }
     }
 ?>
@@ -60,7 +66,7 @@
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)"><input type="text" name="username" id="uname" placeholder="Username" /><span class="error"><?php echo $name_err;?></span></div>
                             <div class="6u$ 12u$(xsmall)"><input type="password" name="password" id="pw" placeholder="Password" /><span class="error"><?php echo $pass_err;?></span></div>
-                            <div class="6u 12u$(xsmall)"><input type="password" name="re_password" id="repw" placeholder="Confirm Password" /><span class="error"><?php echo $re_pass_err;?></span></div>
+                            <div class="6u 12u$(xsmall)"><input type="password" name="re_password" id="repw" placeholder="Confirm Password" /><span class="error"><?php echo $re_pass_err . $match_err;?></span></div>
                             <div class="12u$">
                                 <ul class="actions">
                                     <li><input type="submit" value="Register" class="special" /></li>
