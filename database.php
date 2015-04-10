@@ -7,7 +7,7 @@
 		{
 			$host = "localhost";
 			$db_username = "burakku";
-			$db_password = "123456";
+			$db_password = "123";
 			$db_name = "lib_system";
 
 			$connection = mysqli_connect($host, $db_username, $db_password, $db_name);
@@ -21,11 +21,6 @@
 		function doQuery($query)
 		{
 			$result = mysqli_query($this->connection, $query);
-			// if($result == false)
-			// {
-			// 	$error = 'Invalid query: ';
-			// 	die($error);
-			// }
 			return $result;
 		}
 
@@ -36,7 +31,10 @@
 				FROM user
 				WHERE username = $username");
 
-			if($result['username'] != null)
+            if(mysqli_error($this->connection))
+                return false;
+            $value = mysqli_fetch_assoc($result);
+			if(mysqli_num_rows($value))
 			{
 				return false;
 			}
@@ -44,6 +42,8 @@
 			$this->doQuery("
 				INSERT INTO user (username, password)
 				VALUES ('$username', '$password');");
+            if(mysqli_error($this->connection))
+                return false;
             return true;
 		}
 
@@ -52,11 +52,25 @@
             $result = $this->doQuery("
             SELECT username
             FROM user
-            WHERE username = '$username' AND Password = '$password'");
+            WHERE username = '$username' AND password = '$password'");
 
-            if($result == $username)
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+            $array = mysqli_fetch_array($result);
+
+            if($array['username'] == $username)
                 return true;
             return false;
+        }
+
+        function create_profile($fname, $lname, $DOB, $gender, $email, $is_faculty, $address, $dept)
+        {
+            $this->doQuery("
+
+            ");
+            if(mysqli_error($this->connection))
+                return false;
+            return true;
         }
 	}
 ?>

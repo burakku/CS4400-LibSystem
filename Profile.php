@@ -1,6 +1,18 @@
 <?php
     require_once('init.php');
 
+    $err = "";
+
+    if(register_post_keys('fname', 'lname', 'DOB', 'gender', 'email', 'is_faculty', 'address', 'dept'))
+    {
+        if($db->create_profile($fname, $lname, $DOB, $gender, $email, $is_faculty, $address, $dept))
+        {
+            $_SESSION['is_faculty'] = $is_faculty;
+            redirect('SearchBook.php');
+        }
+    }
+
+    $err = "Please check your input";
 
 ?>
 
@@ -24,6 +36,9 @@
             <link rel="stylesheet" href="css/style-xlarge.css" />
         </noscript>
     </head>
+    <style>
+        .error {color: #FF0000;}
+    </style>
     <body>
 
         <!-- Header -->
@@ -32,27 +47,27 @@
                 </header>
                 <div class="container">
                     <h1>Create Profile</h1>
-                    <form method="post" action="SearchBook.html" id="form">
+                    <form method="post" action="" id="form">
                         <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><input type="text" name="Firstname" id="fname" placeholder="First Name" /></div>
-                            <div class="6u$ 12u$(xsmall)"><input type="text" name="Lastname" id="lname" placeholder="Last Name" /></div>
+                            <div class="6u 12u$(xsmall)"><input type="text" name="fname" id="fname" placeholder="First Name" /></div>
+                            <div class="6u$ 12u$(xsmall)"><input type="text" name="lname" id="lname" placeholder="Last Name" /></div>
                             <div class="6u 12u$(xsmall)"><input type="text" name="DOB" id="pw" placeholder="D.O.B" /></div>
                             <div class="6u 12u$(xsmall)">
-                                <select id='mySelect'>
+                                <select name='gender'>
                                 <option value='Question'>Gender</option>
                                 <option value='male'>Male</option>
                                 <option value='female'>Female</option>
                             </select>
                             </div>
-                            <div class="6u 12u$(xsmall)"><input type="email" name="Email" id="email" placeholder="Email" /></div>
-                            <div class="6u 12u$(xsmall)"><select id='mySelect'>
+                            <div class="6u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
+                            <div class="6u 12u$(xsmall)"><select name='is_faculty'>
                                 <option value='Question'>Are you faculty member?</option>
                                 <option value='1'>Yes</option>
                                 <option value='2'>No</option>
                             </select></div>
                             <div class="6u 12u$(xsmall)"><input type="text" name="address" id="pw" placeholder="Address" /></div>
                             <div class="6u 12u$(xsmall)">
-                                <select id='mySelect'>
+                                <select name='dept'>
                                 <option value='Question'>Associated Department</option>
                                 <option value='1'>D1</option>
                                 <option value='2'>D2</option>
@@ -62,7 +77,7 @@
                             </div>
                             <div class="12u$">
                                 <ul class="actions">
-                                    <li><input type="submit" value="Submit" class="special" /></li>
+                                    <li><input type="submit" value="Submit" class="special" /><br><span class="error"><?php echo $err;?></span></li>
                                 </ul>
                             </div>
                         </div>

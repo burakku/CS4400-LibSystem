@@ -1,7 +1,7 @@
 <?php
     require_once('init.php');
 
-    $username = $password = $name_err = $pass_err = $match_err = "";
+    $username = $password = $name_err = $pass_err = $match_err = $login_err = "";
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if(empty($_POST['username']))
@@ -12,19 +12,17 @@
         {
             $pass_err = "* Password is required";
         }
-        if(isset($_POST['username']) && isset($_POST['password']))
+        if(register_post_keys('username', 'password'))
         {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+            if($db->login($username, $password))
+            {
+                $_SESSION['username'] = $username;
+                redirect('Profile.php');
+            }
+            else {
+                $login_err = "Username or password is incorrect";
+            }
         }
-        $flag = $db->login($username, $password);
-        if($flag)
-        {
-            header('Location: Profile.html');
-        }
-        else
-            header('Location: Login.php');
-
     }
 ?>
 
@@ -63,12 +61,12 @@
                 <div class="container">
                     <form method="post" action='' id="form">
                         <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><input type="text" name="username" id="fname" placeholder="Username" /><span class="error"><?php echo $name_err;?></span></div>
+                            <div class="6u 12u$(xsmall)"><input type="text" name="username" id="fname" placeholder="Username" /><span class="error"><?php echo $name_err . $login_err;?></span></div>
                             <div class="6u$ 12u$(xsmall)"><input type="password" name="password" id="lname" placeholder="Password" /><span class="error"><?php echo $pass_err;?></span></div>
                             
                             <div class="12u$">
                                 <ul class="actions">
-                                    <li><input type="submit" value="Login" class="special" /></li>
+                                    <li><input type="submit" value="Login" class="special" /></span></li>
                                 </ul>
                             </div>
                         </div>
