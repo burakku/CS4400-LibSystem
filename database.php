@@ -5,10 +5,10 @@
 
 		function __construct()
 		{
-			$host = "localhost";
-			$db_username = "burakku";
-			$db_password = "123";
-			$db_name = "lib_system";
+			$host = "academic-mysql.cc.gatech.edu";
+			$db_username = "cs4400_Group_16";
+			$db_password = "1mmiyLhX";
+			$db_name = "cs4400_Group_16";
 
 			$connection = mysqli_connect($host, $db_username, $db_password, $db_name);
 			if(mysqli_connect_errno())
@@ -31,8 +31,6 @@
 				FROM user
 				WHERE username = $username");
 
-            if(mysqli_error($this->connection))
-                return false;
             $value = mysqli_fetch_assoc($result);
 			if(mysqli_num_rows($value))
 			{

@@ -14,6 +14,7 @@
         }
         if (empty($_POST['re_password']))
             $re_pass_err = "* Please re-enter password";
+
         if (!empty($_POST['re_password']) && $_POST['password'] != $_POST['re_password']) {
             $match_err = "Please comfirm the password.";
         }

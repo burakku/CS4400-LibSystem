@@ -1,3 +1,15 @@
+<?php
+    require_once('init.php');
+
+    $err = "";
+    if(register_post_keys('isbn') || register_post_keys('title') || register_post_keys('author'))
+    {
+
+    }
+
+
+?>
+
 <!DOCTYPE HTML>
 
 <html>
@@ -26,7 +38,7 @@
                 </header>
                 <div class="container">
                     <h1>Search Books</h1>
-                    <form method="post" action="RequestHold.html" id="form">
+                    <form method="post" action="" id="form">
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)"><input type="text" name="isbn" id="fname" placeholder="ISBN" /></div>
                             <div class="6u$ 12u$(xsmall)"><input type="text" name="publisher" id="lname" placeholder="Publisher" /></div>
