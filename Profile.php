@@ -2,17 +2,17 @@
     require_once('init.php');
 
     $err = "";
-
-    if(register_post_keys('fname', 'lname', 'DOB', 'gender', 'email', 'is_faculty', 'address', 'dept'))
-    {
-        if($db->create_profile($fname, $lname, $DOB, $gender, $email, $is_faculty, $address, $dept))
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (register_post_keys('fname', 'lname', 'DOB', 'gender', 'email', 'is_faculty', 'address', 'dept'))
         {
-            $_SESSION['is_faculty'] = $is_faculty;
-            redirect('SearchBook.php');
+            if ($db->create_profile($_SESSION['username'], $fname, $lname, $DOB, $gender, $email, $is_faculty, $address, $dept))
+            {
+                $_SESSION['is_faculty'] = $is_faculty;
+                redirect('SearchBook.php');
+            }
         }
+        $err = "Please check your input";
     }
-
-    $err = "Please check your input";
 
 ?>
 

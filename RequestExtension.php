@@ -1,3 +1,8 @@
+<?php
+    require_once('init.php');
+
+?>
+
 <!DOCTYPE HTML>
 
 <html>
@@ -25,11 +30,11 @@
                 <header class="major">
                 </header>
                 <div class="container">
-                    <h1>Track Book Location</h1>
+                    <h1>Request Extension on the Book</h1>
                     <form method="post" action="NEXT" id="form">
                         <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><input type="text" name="isbn" id="fname" placeholder="ISBN" /></div>
-                            <div class="6u$ 12u$(xsmall)"><input type="submit" value="Locate" class="special" /></div>
+                            <div class="6u 12u$(xsmall)"><input type="text" name="issue id" id="fname" placeholder="Enter your issued_id" /></div>
+                            <div class="6u$ 12u$(xsmall)"><input type="submit" value="Submit" class="special" /></div>
                         </div>
                     </form>
                 </div>
@@ -42,17 +47,20 @@
             <header class="major">
             </header>
                     <form>
-                        Floor Number:<br>
-                        <a>Floor Number goes here</a>
+                        Original Checkout Date:<br>
+                        <a>Orignial checkout date goes here</a>
                         <br>
-                        Aisle Number:<br>
-                        <a>Aisle Number goes here</a>
+                        Current Extension Date:<br>
+                        <a>Current Extension Date goes here</a>
                         <br>
-                        Shelf Number:<br>
-                        <a>Shelf Number goes here</a>
+                        New Extension Date:<br>
+                        <a>New Extension Date goes here</a>
                         <br>
-                        Subject:<br>
-                        <a>Subject goes here</a>
+                        Current Return Date:<br>
+                        <a>Current Return Date goes here</a>
+                        <br>
+                        New Estimated Return Date:<br>
+                        <a>New Estimated Return Date goes here</a>
                         </form>
                 </div>
             </div>

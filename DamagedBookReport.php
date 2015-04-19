@@ -1,3 +1,8 @@
+<?php
+    require_once('init.php');
+
+?>
+
 <!DOCTYPE HTML>
 
 <html>

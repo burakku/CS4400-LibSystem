@@ -1,3 +1,8 @@
+<?php
+    require_once('init.php');
+
+?>
+
 <!DOCTYPE HTML>
 
 <html>
@@ -30,25 +35,25 @@
                     <table align='center' border='1'>
                     <tr>
                         <th align='center' width='200' height='20'>Month</th>
-                        <th align='center' width='200' height='20'>User Name</th>
+                        <th align='center' width='200' height='20'>Top Subject</th>
                         <th align='center' width='200' height='20'>#CheckOut</th>
                     </tr>
 
                     <tr>
                         <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>User Name goes here</th>
+                        <th align='center' width='200' height='20'>Top Subject goes here</th>
                         <th align='center' width='200' height='20'>#CheckOut books goes here</th>
                     </tr>
 
                     <tr>
                         <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>User Name goes here</th>
+                        <th align='center' width='200' height='20'>Top Subject goes here</th>
                         <th align='center' width='200' height='20'>#CheckOut books goes here</th>
                     </tr>
 
                     <tr>
                         <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>User Name goes here</th>
+                        <th align='center' width='200' height='20'>Top Subject goes here</th>
                         <th align='center' width='200' height='20'>#CheckOut books goes here</th>
                     </tr>
                     </table>

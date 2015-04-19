@@ -61,7 +61,7 @@
             return false;
         }
 
-        function create_profile($fname, $lname, $DOB, $gender, $email, $is_faculty, $address, $dept)
+        function create_profile($username, $fname, $lname, $DOB, $gender, $email, $is_faculty, $address, $dept)
         {
             $this->doQuery("
 
@@ -69,6 +69,33 @@
             if(mysqli_error($this->connection))
                 return false;
             return true;
+        }
+
+        function search_book($isbn, $title, $author)
+        {
+            $query = "
+                SELECT *
+                FROM book AS b
+                JOIN bookcopy AS c ON b.isbn = c.isbn
+                JOIN author AS a ON b.isbn = c.isbn
+                WHERE ishold = '0' AND ischeck = '0' AND isdamage = '0' ";
+
+            if($isbn)
+            {
+                $query .= "AND b.isbn = $isbn ";
+            }
+            if($title)
+            {
+                $query .= "AND b.title LIKE '%$title%' ";
+            }
+            if($author)
+            {
+                $query .= "AND b.author LIKE '%$author%'";
+            }
+            $result = $this->doQuery($query);
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+            return $result;
         }
 	}
 ?>

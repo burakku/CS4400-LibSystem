@@ -1,3 +1,8 @@
+<?php
+    require_once('init.php');
+
+?>
+
 <!DOCTYPE HTML>
 
 <html>
@@ -25,30 +30,30 @@
                 <header class="major">
                 </header>
                 <div class="container">
-                    <h1>Popular Book Report</h1>
+                    <h1>Frequent User Report</h1>
                 <div class="content">
                     <table align='center' border='1'>
                     <tr>
                         <th align='center' width='200' height='20'>Month</th>
-                        <th align='center' width='200' height='20'>Title</th>
+                        <th align='center' width='200' height='20'>User Name</th>
                         <th align='center' width='200' height='20'>#CheckOut</th>
                     </tr>
 
                     <tr>
                         <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>Title goes here</th>
+                        <th align='center' width='200' height='20'>User Name goes here</th>
                         <th align='center' width='200' height='20'>#CheckOut books goes here</th>
                     </tr>
 
                     <tr>
                         <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>Title goes here</th>
+                        <th align='center' width='200' height='20'>User Name goes here</th>
                         <th align='center' width='200' height='20'>#CheckOut books goes here</th>
                     </tr>
 
                     <tr>
                         <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>Title goes here</th>
+                        <th align='center' width='200' height='20'>User Name goes here</th>
                         <th align='center' width='200' height='20'>#CheckOut books goes here</th>
                     </tr>
                     </table>

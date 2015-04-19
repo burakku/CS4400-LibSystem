@@ -1,3 +1,9 @@
+<?php
+    require_once('init.php');
+    //$book_result = $_SESSION['book_result'];
+    $book_result = $db->search_book(null, 'pro', null);
+?>
+
 <!DOCTYPE HTML>
 
 <html>
@@ -36,11 +42,24 @@
 
 
                         <tr>
-                            <td><form><input type="radio" value="btn"></form></td>
-                            <td>ISBN goes here</td>
-                            <td>Title goes here</td>
-                            <td>Edition goes here</td>
-                            <td># of copies goes here</td>
+                            <form>
+                                <?php
+                                    if($book_result) {
+                                        while ($row = mysqli_fetch_assoc($book_result)) {
+                                            echo '
+                                            <tr>
+                                                <td><input type="radio" name="bookGroup" value="'. $row["isbn"]. '"></td>
+                                                <td>'. $row["isbn"]. '</td>
+                                                <td>'. $row["title"]. '</td>
+                                                <td>'. $row["edition"]. '</td>
+                                                <td>'. $row["copyid"]. '</td>
+                                            </tr>';
+                                        }
+                                    }
+                                    else
+                                        echo "<tr><td>No result</td></tr>";
+                                ?>
+                            </form>
                         </tr>
                     </table>
                     <form method="post" action="NEXT" id="form">
