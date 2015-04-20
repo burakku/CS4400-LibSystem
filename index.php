@@ -61,7 +61,7 @@
                                    <a href=Login.php onClick=”javascript :history.back(-1);”>Login</a>
                                 </ul>
                                 <ul class="actions">
-                                    <a href=Register.html onClick=”javascript :history.back(-1);”>Register</a>
+                                    <a href=Register.php onClick=”javascript :history.back(-1);”>Register</a>
                                 </ul>
                             </div>
                         </div>
