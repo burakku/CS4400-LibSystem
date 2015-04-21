@@ -38,6 +38,7 @@
                 </header>
                 <div class="container">
                     <h1>Hold Request For a Book</h1>
+                    <form method="post" action="NEXT" id="form">
                     <table align='center' border="1">
                         <tr>
                             <td>Select</td>
@@ -45,14 +46,6 @@
                             <td>Title Of the Book</td>
                             <td>Edition</td>
                             <td>#Copies Avaliable</td>
-                        </tr>
-
-                        <tr>
-                            <td><input type="radio" name="select" value="yes"></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
                         </tr>
 
                         <tr>
@@ -76,12 +69,10 @@
                             </form>
                         </tr>
                     </table>
-                    <form method="post" action="NEXT" id="form">
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)"><p>Hold Request Date goes here</p></div>
                             <div class="6u$ 12u$(xsmall)"><p>Estimated Return Date goes here</p></div>
                         </div>
-                    </form>
                     <div class="12u$ 12u$">
                                 <ul class="actions">
                                    <a href=SearchBook.html onClick=”javascript :history.back(-1);”>Back</a>
@@ -92,7 +83,8 @@
                                 <ul class="actions">
                                     <a href=index.php onClick=”javascript :history.back(-1);”>Close</a>
                                 </ul>
-                            </div>
+                    </div>
+                </form>
                 </div>
             </section>
         
