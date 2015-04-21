@@ -29,7 +29,6 @@
         <script src="js/jquery.scrollex.min.js"></script>
         <script src="js/jquery.scrolly.min.js"></script>
         <script src="js/skel.min.js"></script>
-        <script src="js/init.js"></script>
         <noscript>
             <link rel="stylesheet" href="css/skel.css" />
             <link rel="stylesheet" href="css/style.css" />
@@ -60,12 +59,16 @@
                             </select>
                             </div>
                             <div class="6u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
-                            <div class="6u 12u$(xsmall)"><select name='is_faculty'>
+                            
+                            <!-- <div class="6u 12u$(xsmall)"><select name='is_faculty'>
                                 <option value='Question'>Are you faculty member?</option>
                                 <option value='1'>Yes</option>
                                 <option value='2'>No</option>
-                            </select></div>
+                            </select></div> -->
+                            <div>Are you Faculty member?<input type="checkbox" name='is_faculty' onclick="if(this.checked){myFunction()}"></div>
+
                             <div class="6u 12u$(xsmall)"><input type="text" name="address" id="pw" placeholder="Address" /></div>
+                            <li id="test" hidden>
                             <div class="6u 12u$(xsmall)">
                                 <select name='dept'>
                                 <option value='Question'>Associated Department</option>
@@ -75,6 +78,7 @@
                                 <option value='4'>D4</option>
                             </select>
                             </div>
+                            </li>
                             <div class="12u$">
                                 <ul class="actions">
                                     <li><input type="submit" value="Submit" class="special" /><br><span class="error"><?php echo $err;?></span></li>
@@ -82,14 +86,13 @@
                             </div>
                         </div>
                     </form>
+                    <script>
+                    function myFunction() {
+                            $('#test').show();
+                    }
+                    </script>
                 </div>
             </section>
-        
-        <!-- Footer -->
-            <section id="footer" class="main special">
-            <span class="image fit primary"><img src="images/pic01.jpg" alt="" /></span>
-                <footer>
-                </footer>
-            </section>
+
     </body>
 </html>
