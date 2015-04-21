@@ -1,6 +1,15 @@
 <?php
     require_once('init.php');
-
+    $err = "";
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(register_post_keys('track_isbn')) {
+            $result_track = $db->track_book($track_isbn);
+            if(mysqli_num_rows($result_track) == 0)
+                $err = "No book found";
+            else
+                $track_row = mysqli_fetch_array($result_track);
+        }
+    }
 ?>
 <!DOCTYPE
     HTML>
@@ -23,6 +32,9 @@
             <link rel="stylesheet" href="css/style-xlarge.css" />
         </noscript>
     </head>
+    <style>
+        .error {color: #FF0000;}
+    </style>
     <body>
 
         <!-- Header -->
@@ -31,9 +43,9 @@
                 </header>
                 <div class="container">
                     <h1>Track Book Location</h1>
-                    <form method="post" action="NEXT" id="form">
+                    <form method="post" action="" id="form">
                         <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><input type="text" name="isbn" id="fname" placeholder="ISBN" /></div>
+                            <div class="6u 12u$(xsmall)"><input type="text" name="track_isbn" id="fname" placeholder="ISBN" /><br><span class="error"><?php echo $err;?></span></div>
                             <div class="6u$ 12u$(xsmall)"><input type="submit" value="Locate" class="special" /></div>
                         </div>
                     </form>
@@ -46,19 +58,24 @@
                 <div class="content">
             <header class="major">
             </header>
-                    <form>
-                        Floor Number:<br>
-                        <a>Floor Number goes here</a>
-                        <br>
-                        Aisle Number:<br>
-                        <a>Aisle Number goes here</a>
-                        <br>
-                        Shelf Number:<br>
-                        <a>Shelf Number goes here</a>
-                        <br>
-                        Subject:<br>
-                        <a>Subject goes here</a>
-                        </form>
+                    <?php
+                        if($_SERVER["REQUEST_METHOD"] == "POST" && mysqli_num_rows($result_track)) {
+                            echo '
+                            <form>
+                            Floor Number:<br>
+                            <a>' . $track_row["floorid"] . '</a>
+                            <br>
+                            Aisle Number:<br>
+                            <a>' . $track_row["aisleid"] . '</a>
+                            <br>
+                            Shelf Number:<br>
+                            <a>' . $track_row["shelfid"] . '</a>
+                            <br>
+                            Subject:<br>
+                            <a>' . $track_row["subname"] . '</a>
+                            </form>';
+                        }
+                    ?>
                 </div>
             </div>
             </section>

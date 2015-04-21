@@ -31,11 +31,8 @@
 				FROM user
 				WHERE username = $username");
 
-            $value = mysqli_fetch_assoc($result);
-			if(mysqli_num_rows($value))
-			{
+			if($result)
 				return false;
-			}
 
 			$this->doQuery("
 				INSERT INTO user (username, password)
@@ -64,7 +61,8 @@
         function create_profile($username, $fname, $lname, $DOB, $gender, $email, $is_faculty, $address, $dept)
         {
             $this->doQuery("
-
+                INSERT INTO studentfaculty(username, name, dob, gender, isdebarred, email, address, isfaculty, dept, 0)
+                VALUES ($username, $fname . $lname, $DOB, $gender, '0', $email, $address, $is_faculty, $dept, 0)
             ");
             if(mysqli_error($this->connection))
                 return false;
@@ -73,25 +71,84 @@
 
         function search_book($isbn, $title, $author)
         {
-            $query = "
-                SELECT *
-                FROM book AS b
-                JOIN bookcopy AS c ON b.isbn = c.isbn
-                JOIN author AS a ON b.isbn = c.isbn
-                WHERE ishold = '0' AND ischeck = '0' AND isdamage = '0' ";
+            $query = "";
+            if($isbn) {
+                $query = "
+                SELECT title, book.isbn, isreserve, edition, publisher, pubplace, copyrightyr, subname, shelfid, count(copyid) as 'copies'
+                from book join bookcopy on book.isbn=bookcopy.isbn
+                where book.isbn = $isbn
+                AND bookcopy.isdamage = '0'
+                AND bookcopy.ishold= '0'
+                AND bookcopy.ischeck = '0'
+                group by book.isbn
+            ";
+            }
+            elseif($title && empty($isbn) && empty($author))
+            {
+                $query = "
+                SELECT title, book.isbn, isreserve, edition, publisher, pubplace, copyrightyr, subname, shelfid, count(copyid) as 'copies'
+                from book join bookcopy on book.isbn=bookcopy.isbn
+                where book.title LIKE '%$title%'
+                AND bookcopy.isdamage = '0'
+                AND bookcopy.ishold= '0'
+                AND bookcopy.ischeck = '0'
+                group by book.isbn
+                ";
+            }
+            elseif($author && empty($isbn) && empty($author))
+            {
+                $query = "
+                SELECT title, book.isbn, isreserve, edition, publisher, pubplace, copyrightyr, subname, shelfid, count(copyid) as 'copies'
+                from book join bookcopy on book.isbn=bookcopy.isbn join author on book.isbn = author.isbn
+                where author.author LIKE '%$author%'
+                AND bookcopy.isdamage = '0'
+                AND bookcopy.ishold= '0'
+                AND bookcopy.ischeck = '0'
+                group by book.isbn
+                ";
+            }
+            elseif($title && $author && empty($isbn))
+            {
+                $query = "
+                SELECT title, book.isbn, isreserve, edition, publisher, pubplace, copyrightyr, subname, shelfid, count(copyid) as 'copies'
+                from book join bookcopy on book.isbn=bookcopy.isbn join author on book.isbn = author.isbn
+                where author.author LIKE '%$author%'
+                AND book.title LIKE '%$title%'
+                AND bookcopy.isdamage = '0'
+                AND bookcopy.ishold= '0'
+                AND bookcopy.ischeck = '0'
+                group by book.isbn
+                ";
+            }
+            $result = $this->doQuery($query);
+            return $result;
+        }
 
-            if($isbn)
-            {
-                $query .= "AND b.isbn = $isbn ";
-            }
-            if($title)
-            {
-                $query .= "AND b.title LIKE '%$title%' ";
-            }
-            if($author)
-            {
-                $query .= "AND b.author LIKE '%$author%'";
-            }
+        function request_ext($issue_id)
+        {
+            $query = "
+                SELECT title, book.isbn, edition, count(copyid) as 'copies available', min(copyid) as 'copy'
+                from book join bookcopy on book.isbn=bookcopy.isbn
+                where book.isbn=$isbn
+                AND bookcopy.isdamage = '0'
+                AND bookcopy.ishold= '0'
+                AND bookcopy.ischeck = '0'
+                AND book.isreserve = '0'
+                group by book.isbn";
+
+            $result = $this->doQuery($query);
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+            return $result;
+        }
+
+        function track_book($isbn)
+        {
+            $query = "
+                select floorid, aisleid, shelf.shelfid as shelfid, subname
+                from book join shelf on book.shelfid = shelf.shelfid
+                where isbn = $isbn
+            ";
             $result = $this->doQuery($query);
             if(mysqli_error($this->connection))
                 die(mysqli_error($this->connection));

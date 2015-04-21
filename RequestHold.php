@@ -1,7 +1,14 @@
 <?php
     require_once('init.php');
-    //$book_result = $_SESSION['book_result'];
-    $book_result = $db->search_book(null, 'pro', null);
+    $search_isbn = $search_title = $search_author = null;
+    if(isset($_SESSION["search_isbn"]))
+        $search_isbn = $_SESSION["search_isbn"];
+    if(isset($_SESSION["search_title"]))
+        $search_title = $_SESSION["search_title"];
+    if(isset($_SESSION["search_author"]))
+        $search_author = $_SESSION["search_author"];
+
+    $book_result = $db->search_book($search_isbn, $search_title, $search_author);
 ?>
 
 <!DOCTYPE HTML>
@@ -31,7 +38,7 @@
                 </header>
                 <div class="container">
                     <h1>Hold Request For a Book</h1>
-                    <table border="1">
+                    <table align='center' border="1">
                         <tr>
                             <td>Select</td>
                             <td>ISBN</td>
@@ -44,7 +51,7 @@
                         <tr>
                             <form>
                                 <?php
-                                    if($book_result) {
+                                    if(!empty($book_result)) {
                                         while ($row = mysqli_fetch_assoc($book_result)) {
                                             echo '
                                             <tr>
@@ -52,7 +59,7 @@
                                                 <td>'. $row["isbn"]. '</td>
                                                 <td>'. $row["title"]. '</td>
                                                 <td>'. $row["edition"]. '</td>
-                                                <td>'. $row["copyid"]. '</td>
+                                                <td>'. $row["copies"]. '</td>
                                             </tr>';
                                         }
                                     }

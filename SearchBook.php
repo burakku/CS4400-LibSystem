@@ -1,12 +1,16 @@
 <?php
     require_once('init.php');
 
-    $err = "";
+    $err = $search_isbn = $search_title = $search_author = null;
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        if(register_post_keys('isbn') || register_post_keys('title') || register_post_keys('author'))
+        if(register_post_keys('search_isbn') || register_post_keys('search_title') || register_post_keys('search_author'))
         {
-            $book_result = $db->search_book($isbn, $title, $author);
-            $_SESSION['book_result'] = $book_result;
+            //if($search_isbn)
+                $_SESSION["search_isbn"] = $search_isbn;
+            //if($search_title)
+                $_SESSION["search_title"] = $search_title;
+            //if($search_author)
+                $_SESSION["search_author"] = $search_author;
             redirect('RequestHold.php');
         }
         $err = "Please fill at least one field";
@@ -48,9 +52,9 @@
         <h1>Search Books</h1>
         <form method="post" action="" id="form">
             <div class="row uniform">
-                <div class="6u 12u$(xsmall)"><input type="text" name="isbn" id="fname" placeholder="ISBN" /></div>
-                <div class="6u 12u$(xsmall)"><input type="text" name="title" id="fname" placeholder="Title" /></div>
-                <div class="6u 12u$(xsmall)"><input type="text" name="author" id="fname" placeholder="Author" /></div>
+                <div class="6u 12u$(xsmall)"><input type="text" name="search_isbn" id="fname" placeholder="ISBN" /></div>
+                <div class="6u 12u$(xsmall)"><input type="text" name="search_title" id="fname" placeholder="Title" /></div>
+                <div class="6u 12u$(xsmall)"><input type="text" name="search_author" id="fname" placeholder="Author" /></div>
                 <div class="12u$ 12u$">
                     <ul class="actions">
                         <a href=Profile.html onClick=”javascript :history.back(-1);”>Back</a>

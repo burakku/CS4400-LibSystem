@@ -1,6 +1,10 @@
 <?php
     require_once('init.php');
-
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(register_post_keys('issue_id')) {
+            $result_ext = $db->request_ext($issue_id);
+        }
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -30,10 +34,10 @@
                 <header class="major">
                 </header>
                 <div class="container">
-                    <h1>Request Extension on the Book</h1>
-                    <form method="post" action="NEXT" id="form">
+                    <h1>Request Extension on A Book</h1>
+                    <form method="post" action="" id="form">
                         <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><input type="text" name="issue id" id="fname" placeholder="Enter your issued_id" /></div>
+                            <div class="6u 12u$(xsmall)"><input type="text" name="issue_id" id="fname" placeholder="Enter your issued ID" /></div>
                             <div class="6u$ 12u$(xsmall)"><input type="submit" value="Submit" class="special" /></div>
                         </div>
                     </form>

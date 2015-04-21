@@ -1,5 +1,10 @@
 <?php
     require_once('init.php');
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(register_post_keys('issue_id')) {
+            $result
+        }
+    }
 
 ?>
 

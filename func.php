@@ -8,6 +8,7 @@
 		exit;
 	}
 
+    // Check if post keys are filled
     function register_post_keys() {
         $args = func_get_args();
         return register_keys($_POST, $args);
@@ -39,4 +40,9 @@
 		$data = htmlspecialchars($data);
 		return $data;
 	}
+
+    function logout()
+    {
+        session_unset();
+    }
 ?>
