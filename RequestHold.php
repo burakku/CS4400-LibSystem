@@ -9,6 +9,7 @@
         $search_author = $_SESSION["search_author"];
 
     $book_result = $db->search_book($search_isbn, $search_title, $search_author);
+    if(isset())
 ?>
 
 <!DOCTYPE HTML>
@@ -55,7 +56,7 @@
                                         while ($row = mysqli_fetch_assoc($book_result)) {
                                             echo '
                                             <tr>
-                                                <td><input type="radio" name="bookGroup" value="'. $row["isbn"]. '"></td>
+                                                <td><input type="radio" name="book_select" value="'. $row["isbn"]. '"></td>
                                                 <td>'. $row["isbn"]. '</td>
                                                 <td>'. $row["title"]. '</td>
                                                 <td>'. $row["edition"]. '</td>
@@ -75,7 +76,7 @@
                         </div>
                     <div class="12u$ 12u$">
                                 <ul class="actions">
-                                   <a href=SearchBook.html onClick=”javascript :history.back(-1);”>Back</a>
+                                   <a href=SearchBook.php onClick=”javascript :history.back(-1);”>Back</a>
                                 </ul>
                                 <ul class="actions">
                                     <li><input type="submit" value="Submit" class="special" /></li>

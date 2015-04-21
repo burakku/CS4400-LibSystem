@@ -1,26 +1,27 @@
 <?php
     require_once('init.php');
 
-    $username = $password = $name_err = $pass_err = $match_err = $login_err = "";
+    $username = $password = $name_err = $match_err = $login_err = "";
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if(empty($_POST['username']))
         {
             $name_err = "* Username is required";
         }
-        if (empty($_POST['password'])) 
+        if(register_post_keys('username'))
         {
-            $pass_err = "* Password is required";
-        }
-        if(register_post_keys('username', 'password'))
-        {
+            register_post_keys('password');
             if($db->login($username, $password))
             {
                 $_SESSION['username'] = $username;
-                redirect('Profile.php');
+                if(!$_SESSION['isstuff']) {
+                    if(!$_SESSION['hasprofile'])
+                        redirect('Profile.php');
+                    else
+                }
             }
             else {
-                $login_err = "Username or password is incorrect";
+                $login_err = "Login unsuccessful";
             }
         }
     }
@@ -62,7 +63,7 @@
                     <form method="post" action='' id="form">
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)"><input type="text" name="username" id="fname" placeholder="Username" /><span class="error"><?php echo $name_err . $login_err;?></span></div>
-                            <div class="6u$ 12u$(xsmall)"><input type="password" name="password" id="lname" placeholder="Password" /><span class="error"><?php echo $pass_err;?></span></div>
+                            <div class="6u$ 12u$(xsmall)"><input type="password" name="password" id="lname" placeholder="Password" /></div>
                             
                             <div class="12u$">
                                 <ul class="actions">
