@@ -65,11 +65,10 @@
                                 <option value='1'>Yes</option>
                                 <option value='2'>No</option>
                             </select></div> -->
-                            <div>Are you Faculty member?<input type="checkbox" name='is_faculty' onclick="if(this.checked){myFunction()}"></div>
+                            <div>Are you Faculty member?<input type="checkbox" name='is_faculty' onclick="showMe('div1')"></div>
 
                             <div class="6u 12u$(xsmall)"><input type="text" name="address" id="pw" placeholder="Address" /></div>
-                            <li id="test" hidden>
-                            <div class="6u 12u$(xsmall)">
+                            <div id="div1" style="display:none">
                                 <select name='dept'>
                                 <option value='Question'>Associated Department</option>
                                 <option value='1'>D1</option>
@@ -78,7 +77,6 @@
                                 <option value='4'>D4</option>
                             </select>
                             </div>
-                            </li>
                             <div class="12u$">
                                 <ul class="actions">
                                     <li><input type="submit" value="Submit" class="special" /><br><span class="error"><?php echo $err;?></span></li>
@@ -87,8 +85,16 @@
                         </div>
                     </form>
                     <script>
-                    function myFunction() {
-                            $('#test').show();
+                    function showMe (box) {
+                        var chboxs = document.getElementsByName("is_faculty");
+                        var vis = "none";
+                        for(var i=0;i<chboxs.length;i++) { 
+                            if(chboxs[i].checked){
+                             vis = "block";
+                                break;
+                            }
+                        }
+                        document.getElementById(box).style.display = vis;
                     }
                     </script>
                 </div>
