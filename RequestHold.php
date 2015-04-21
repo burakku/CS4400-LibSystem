@@ -47,6 +47,13 @@
                             <td>#Copies Avaliable</td>
                         </tr>
 
+                        <tr>
+                            <td><input type="radio" name="select" value="yes"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
 
                         <tr>
                             <form>
