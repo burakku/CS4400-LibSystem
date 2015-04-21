@@ -30,8 +30,9 @@
                 <header class="major">
                 </header>
                 <div class="container">
-                    <h1>Book Checkout</h1>
+                    <h1>Return Book</h1>
                     <form method="post" action="BookCheckOut.html" id="form">
+                        <div class="12u 12u$(xsmall)"><input type="text" name="issue_id" id="issue_id" placeholder="Issue Id" />
                         ISBN:<br>
                         <a>ISBN goes here</a>
                         <br>

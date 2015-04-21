@@ -25,7 +25,7 @@
                 <header class="major">
                 </header>
                 <div class="container">
-                    <h1>Future Hold Request for the Book</h1>
+                    <h1>Lost/Damaged Book</h1>
                     <form method="post" action="NEXT" id="form">
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)"><input type="text" name="isbn" id="fname" placeholder="Enter ISBN here" /></div>
@@ -39,7 +39,22 @@
                             </div>
                             <div class="6u 12u$(xsmall)">
                                 Current Time:<br>
-                                <a>Time goes here</a>
+                                <a id="clockbox"></a>
+                                <script type="text/javascript">
+                                    function GetClock(){
+                                    var d=new Date();
+                                    var nday=d.getDay(),nmonth=d.getMonth(),ndate=d.getDate(),nyear=d.getYear(),nhour=d.getHours(),nmin=d.getMinutes();
+                                    if(nyear<1000) nyear+=1900;
+                                    if(nmin<=9) nmin="0"+nmin
+
+                                    document.getElementById('clockbox').innerHTML=""+nyear+"-"+(nmonth+1)+"-"+ndate+" "+nhour+":"+nmin+"";
+                                    }
+
+                                    window.onload=function(){
+                                    GetClock();
+                                    setInterval(GetClock,1000);
+                                    }
+                                    </script>
                             </div>
                             <div class="12u$ 15u$(xsmall)"><input type="submit" value="Look For Last User" class="special" /></div>
                         </div>
