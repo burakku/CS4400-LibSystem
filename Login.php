@@ -19,7 +19,7 @@
                         redirect('Profile.php');
                     }
                     else {
-                        redirect('SearchBook.php');
+                        redirect('userHomePage.php');
                     }
                 }
             }

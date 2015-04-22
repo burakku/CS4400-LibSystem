@@ -14,7 +14,7 @@
         }
         if(isset($_POST['sub_hold'])){
             $db->future_hold($copy_num, $future_isbn, $_SESSION['username'], $exp_date);
-            redirect('SearchBook.php');
+            redirect('userHomePage.php');
         }
     }
 

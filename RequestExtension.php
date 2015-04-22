@@ -22,7 +22,7 @@
             }
             if(isset($_POST['sub_ext'])){
                 $db->request_ext($issue_id);
-                redirect('SearchBook.php');
+                redirect('userHomePage.php');
             }
         }
     }

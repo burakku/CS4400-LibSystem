@@ -22,7 +22,7 @@
             }
         }
         $db->request_hold($_SESSION['username'], $request_isbn, $copy_num);
-        redirect('SearchBook.php');
+        redirect('userHomePage.php');
     }
 ?>
 

@@ -63,7 +63,7 @@
                     WHERE user.username = '$username'
                     ");
                     $row = mysqli_fetch_assoc($check);
-                    if(!$row['isdebarred']) {
+                    if($row['isdebarred'] == null) {
                         $_SESSION['hasprofile'] = false;
                     }
                     elseif($row['isdebarred'] == '1')

@@ -21,7 +21,7 @@
             elseif($is_faculty == '0' && $gender != 'Question'){
                 if ($db->create_profile($_SESSION['username'], $fname . $lname, $date, $gender, $email, $is_faculty, $address, null)) {
                     $_SESSION['is_faculty'] = $is_faculty;
-                    redirect('SearchBook.php');
+                    redirect('userHomePage.php');
                 }
             }
         }
