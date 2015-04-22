@@ -28,7 +28,7 @@
 
 <html>
     <head>
-        <h1><br>Frequent User Report</br></h1>
+        <h1><br>Popular Book Report</br></h1>
         </head>
         <style>
         table, th, td {
@@ -39,7 +39,7 @@
         <?php
 
 
-        echo "<table><tr><th>Month</th><th>Subject</th><th>#Checkout</th></tr>";
+        echo "<table><tr><th>Month</th><th>Book Titile</th><th>#Checkout</th></tr>";
         while($row = mysqli_fetch_assoc($resultA)) {
             echo " <tr><td>Janurary</td><td>" . $row["title"]. "</td><td>" . $row["count(issueid)"].  "</td></tr>";
         }
