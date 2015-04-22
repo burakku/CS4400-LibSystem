@@ -145,6 +145,23 @@
             return $result;
         }
 
+        function request_hold($username, $isbn, $copy_id)
+        {
+            $this->doQuery("
+            update bookcopy set ishold = '1', requester = '$username'
+            where bookcopy.isbn = '$isbn' AND bookcopy.copyid = '$copy_id' LIMIT 1
+            ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+
+            $this->doQuery("
+            INSERT INTO issue(username, issuedate, redate, copyid, isbn)
+            VALUES ('$username', CURDATE(), DATE_ADD(CURDATE(),INTERVAL 17 DAY), $copy_id, '$isbn')
+            ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+        }
+
         function generatePopular()
         {
             $query = "
