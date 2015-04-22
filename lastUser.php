@@ -21,7 +21,7 @@ AND bookcopy.isbn = issue.isbn
 WHERE bookcopy.isdamage =  '1' and  issue.isbn= CONVERT( _utf8 '$isbn'
 								USING latin1 ) 
 								COLLATE latin1_swedish_ci 
-								and issue.copyid= CONVERT( _utf8 '$isbn'
+								and issue.copyid= CONVERT( _utf8 '$copyid'
 								USING latin1 ) 
 								COLLATE latin1_swedish_ci
 ORDER BY redate DESC 
