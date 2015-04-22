@@ -15,10 +15,12 @@
             {
                 $_SESSION['username'] = $username;
                 if($_SESSION['isstaff'] == false) {
-                    if($_SESSION['hasprofile'] == false)
+                    if($_SESSION['hasprofile'] == false) {
                         redirect('Profile.php');
-                    else
+                    }
+                    else {
                         redirect('SearchBook.php');
+                    }
                 }
             }
             else {
