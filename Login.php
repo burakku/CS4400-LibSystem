@@ -22,6 +22,8 @@
                         redirect('userHomePage.php');
                     }
                 }
+                if($_SESSION['isstaff'] == true)
+                    redirect('staffHomePage.php');
             }
             else {
                 $login_err = "Login unsuccessful";

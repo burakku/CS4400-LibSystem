@@ -1,3 +1,11 @@
+<?php
+require_once('init.php');
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    logout();
+    redirect('index.php');
+}
+?>
+
 <!DOCTYPE HTML>
 
 <html>
@@ -36,9 +44,12 @@
                             <div class="6u 12u$(xsmall)"><a href="PopularBookReport.php">Popular Book Report</a></div>
                             <div class="6u 12u$(xsmall)"><a href="PopularSubjectReport.php">Popular Subject Report</a></div>
                             <div class="12u$">
-                                <a href="login.php">Back</a>
+                                <a href="Login.php">Back</a>
                             </div>
                         </div>
+                    <form method="post" action="" id="form">
+                        <br><input type="submit" value="Logout" class="special" />
+                        </form>
                 </div>
             </section>
         

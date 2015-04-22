@@ -1,13 +1,5 @@
 <?php
-        $link = mysql_connect('academic-mysql.cc.gatech.edu', 'cs4400_Group_16', '1mmiyLhX'); 
-        if (!$link) { 
-        die('Could not connect: ' . mysql_error()); 
-        } 
-        mysql_select_db('cs4400_Group_16'); 
-
-
-
-
+require_once('init.php');
 ?>
 
 <html>
