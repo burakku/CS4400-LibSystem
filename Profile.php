@@ -1,14 +1,27 @@
 <?php
     require_once('init.php');
 
-    $err = "";
+    $err = $is_faculty = $date = "";
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (register_post_keys('fname', 'lname', 'DOB', 'gender', 'email', 'is_faculty', 'address', 'dept'))
+        if (register_post_keys('fname', 'lname', 'DOB', 'gender', 'email', 'address', 'dept'))
         {
-            if ($db->create_profile($_SESSION['username'], $fname, $lname, $DOB, $gender, $email, $is_faculty, $address, $dept))
-            {
-                $_SESSION['is_faculty'] = $is_faculty;
-                redirect('SearchBook.php');
+            if(empty($_POST['is_faculty']))
+                $is_faculty = '0';
+            else
+                $is_faculty = '1';
+            $date = date('Y-m-d', strtotime($DOB));
+echo var_dump($fname, $date);
+            if($is_faculty == '1' && $dept != 'Question' && $gender != 'Question') {
+                if ($db->create_profile($_SESSION['username'], $fname . $lname, $date, $gender, $email, $is_faculty, $address, $dept)) {
+                    $_SESSION['is_faculty'] = $is_faculty;
+                    redirect('SearchBook.php');
+                }
+            }
+            elseif($is_faculty == '0' && $gender != 'Question'){
+                if ($db->create_profile($_SESSION['username'], $fname . $lname, $date, $gender, $email, $is_faculty, $address, null)) {
+                    $_SESSION['is_faculty'] = $is_faculty;
+                    redirect('SearchBook.php');
+                }
             }
         }
         $err = "Please check your input";
@@ -50,12 +63,12 @@
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)"><input type="text" name="fname" id="fname" placeholder="First Name" /></div>
                             <div class="6u$ 12u$(xsmall)"><input type="text" name="lname" id="lname" placeholder="Last Name" /></div>
-                            <div class="6u 12u$(xsmall)"><input type="text" name="DOB" id="pw" placeholder="D.O.B: mm/dd/yyyy" /></div>
+                            <div class="6u 12u$(xsmall)"><input type="text" name="DOB" id="pw" placeholder="D.O.B: yyyy-mm-dd" /></div>
                             <div class="6u 12u$(xsmall)">
                                 <select name='gender'>
                                 <option value='Question'>Gender</option>
-                                <option value='male'>Male</option>
-                                <option value='female'>Female</option>
+                                <option value='0'>Male</option>
+                                <option value='1'>Female</option>
                             </select>
                             </div>
                             <div class="6u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
