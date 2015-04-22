@@ -10,8 +10,9 @@
             else
                 $is_faculty = '1';
             $date = date('Y-m-d', strtotime($DOB));
-echo $gender.$dept;
+
             if($is_faculty == '1' && $dept != 'Question' && $gender != 'Question') {
+                echo $gender.$dept;
                 if ($db->create_profile($_SESSION['username'], $fname . $lname, $date, $gender, $email, $is_faculty, $address, $dept)) {
                     $_SESSION['is_faculty'] = $is_faculty;
                     redirect('SearchBook.php');

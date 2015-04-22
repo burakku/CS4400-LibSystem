@@ -1,10 +1,13 @@
 <?php
     require_once('init.php');
+    $err = "";
     $result_issue_date = $ckout_date = $cur_ext_date = $new_ext_date = $cur_redate = $new_redate = null;
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST['sub_issue'])) {
             if(register_post_keys('issue_id')) {
                 $result_issue_date = $db->get_issue_date($_SESSION['username'], $issue_id);
+                if(!mysqli_num_rows($result_issue_date))
+                    $err = "No record found";
                 if ($result_issue_date) {
                     $row = mysqli_fetch_assoc($result_issue_date);
                     $ckout_date = $row['issuedate'];
@@ -45,6 +48,9 @@
             <link rel="stylesheet" href="css/style-xlarge.css" />
         </noscript>
     </head>
+    <style>
+        .error {color: #FF0000;}
+    </style>
     <body>
 
         <!-- Header -->
@@ -55,7 +61,7 @@
                     <h1>Request Extension on A Book</h1>
                     <form method="post" action="" id="form">
                         <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><input type="text" name="issue_id" id="fname" placeholder="Enter your issued ID" /></div>
+                            <div class="6u 12u$(xsmall)"><input type="text" name="issue_id" id="fname" placeholder="Enter your issued ID" /><br><span class="error"><?php echo $err;?></span></div>
                             <div class="6u$ 12u$(xsmall)"><input type="submit" name="sub_issue" value="Submit" class="special" /></div>
                         </div>
                     </form>
@@ -69,7 +75,7 @@
             <header class="major">
             </header>
                     <?php
-                    if($_SERVER["REQUEST_METHOD"] == "POST" && $result_issue_date) {
+                    if($_SERVER["REQUEST_METHOD"] == "POST" && mysqli_num_rows($result_issue_date)) {
                         echo '
                         <form>
                             Original Checkout Date:<br>
