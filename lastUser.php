@@ -30,9 +30,11 @@ LIMIT 1"
 	}
 	$num = mysql_num_rows($result);
 	if ($num > 0) {
-		list($username,$redate) = mysql_fetch_row($result);
+		list($username,$redate,$cost) = mysql_fetch_row($result);
 		$_SESSION['lastUser'] = $username;
+		$penalty = 0.5*$cost;
 		echo "<br>The last one checked out this book is: ".$username;
+		echo "<br>The penality should be:".$penalty;
 	}else{
 		echo "<br>No user is found.";
 	}
