@@ -47,6 +47,7 @@
 
         function login($username, $password)
         {
+<<<<<<< HEAD
             if(!empty($password)) {
                 $result = $this->doQuery("
                 SELECT username
@@ -88,6 +89,19 @@
                     return true;
                 }
             }
+=======
+            $result = $this->doQuery("
+            SELECT username
+            FROM user
+            WHERE username = '$username' AND password = '$password'");
+
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+            $array = mysqli_fetch_array($result);
+
+            if($array['username'] == $username)
+                return true;
+>>>>>>> origin/new-branch
             return false;
         }
 
@@ -138,19 +152,24 @@
                 die(mysqli_error($this->connection));
             return $result;
         }
-        
         function generatePopularSecond()
         {
             $query = "
                select subname, count(issueid) from book join issue on issue.isbn=book.isbn where MONTH(issuedate)=2 group by book.subname order by count(issueid) DESC limit 3";
 
+<<<<<<< HEAD
+            $this->doQuery("
+            INSERT INTO issue(username, issuedate, redate, copyid, isbn)
+            VALUES ('$username', CURDATE(), DATE_ADD(CURDATE(),INTERVAL 17 DAY), $copy_id, '$isbn')
+            ");
+=======
 
             $result = $this->doQuery($query);
+>>>>>>> origin/new-branch
             if(mysqli_error($this->connection))
                 die(mysqli_error($this->connection));
             return $result;
         }
-
          function generateUserReport()
         {
             $query = "select name, count(issue.username) from issue join studentfaculty on issue.username=studentfaculty.username where month(issuedate)=1 GROUP BY issue.username ORDER BY count(issue.username) DESC limit 5";
@@ -161,6 +180,7 @@
                 die(mysqli_error($this->connection));
             return $result;
 
+<<<<<<< HEAD
         function get_issue_date($username, $issue_id){
             $result = $this->doQuery("
                 select issuedate, extdate, redate
@@ -192,18 +212,13 @@
                     die(mysqli_error($this->connection));
             }
         }
-
+=======
+        }
         function generateUserReportSecond()
         {
             $query = "select name , count(issue.username) from issue join studentfaculty on issue.username=studentfaculty.username where month(issuedate)=2 GROUP BY issue.username ORDER BY count(issue.username) DESC limit 5";
 
-
-            $result = $this->doQuery($query);
-            if(mysqli_error($this->connection))
-                die(mysqli_error($this->connection));
-            return $result;
-
-        }
+>>>>>>> origin/new-branch
 
         function get_future_book($isbn)
         {
@@ -217,8 +232,7 @@
             return $result;
 
         }
-        
-        function generatePopularBook()
+                 function generatePopularBook()
         {
             $query = "select title, count(issueid) from book join issue on issue.isbn=book.isbn where MONTH(issuedate)=1 group by book.isbn order by count(issueid) DESC limit 3";
 
@@ -228,8 +242,7 @@
                 die(mysqli_error($this->connection));
             return $result;
 
-        }
-
+<<<<<<< HEAD
         function future_hold($copy_id, $isbn, $username, $redate)
         {
             $this->doQuery("
@@ -249,19 +262,10 @@
         }
 
         function track_book($isbn)
-        {
-            $query = "
-                select floorid, aisleid, shelf.shelfid as shelfid, subname
-                from book join shelf on book.shelfid = shelf.shelfid
-                where isbn = $isbn
-            ";
-            $result = $this->doQuery($query);
-            if(mysqli_error($this->connection))
-                die(mysqli_error($this->connection));
-            return $result;
+=======
         }
-
         function generatePopularBookSecond()
+>>>>>>> origin/new-branch
         {
             $query = "select title, count(issueid) from book join issue on issue.isbn=book.isbn where MONTH(issuedate)=2 group by book.isbn order by count(issueid) DESC limit 3";
 
@@ -272,5 +276,6 @@
             return $result;
 
         }
+
 	}
 ?>

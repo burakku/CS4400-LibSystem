@@ -1,6 +1,15 @@
 <?php
     require_once('init.php');
+             $result = $db->generateUserReport();
+             $resultA = $db->generateUserReport();
+       //    $firstSubject =
+            $resultSecond = $db->generateUserReportSecond();
+            $resultB = $db->generateUserReportSecond();
 
+                        //        while ($row = mysqli_fetch_assoc($result)){
+                          //               echo $row['count(issue.username)'] . "<br />";
+
+                            //        }
 ?>
 
 <!DOCTYPE HTML>
@@ -16,7 +25,7 @@
         <script src="js/jquery.scrollex.min.js"></script>
         <script src="js/jquery.scrolly.min.js"></script>
         <script src="js/skel.min.js"></script>
-        <script src="js/init.js"></script>
+     
         <noscript>
             <link rel="stylesheet" href="css/skel.css" />
             <link rel="stylesheet" href="css/style.css" />
@@ -25,43 +34,32 @@
     </head>
     <body>
 
-        <!-- Header -->
-            <section id="header">
-                <header class="major">
-                </header>
-                <div class="container">
-                    <h1>Frequent User Report</h1>
-                <div class="content">
-                    <table align='center' border='1'>
-                    <tr>
-                        <th align='center' width='200' height='20'>Month</th>
-                        <th align='center' width='200' height='20'>User Name</th>
-                        <th align='center' width='200' height='20'>#CheckOut</th>
-                    </tr>
+<html>
+    <head>
+        <h1><br>Frequent User Report</br></h1>
+        </head>
+        <style>
+        table, th, td {
+     border: 1px solid black;}
+</style>
+    <body>
 
-                    <tr>
-                        <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>User Name goes here</th>
-                        <th align='center' width='200' height='20'>#CheckOut books goes here</th>
-                    </tr>
+        <?php
 
-                    <tr>
-                        <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>User Name goes here</th>
-                        <th align='center' width='200' height='20'>#CheckOut books goes here</th>
-                    </tr>
 
-                    <tr>
-                        <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>User Name goes here</th>
-                        <th align='center' width='200' height='20'>#CheckOut books goes here</th>
-                    </tr>
-                    </table>
-            </div>
-            </div>
-            </section>
-        
-        <!-- Footer -->
+        echo "<table><tr><th>Month</th><th>Subject</th><th>#Checkout</th></tr>";
+        while($row = mysqli_fetch_assoc($resultA)) {
+            echo " <tr><td>Janurary</td><td>" . $row["name"]. "</td><td>" . $row["count(issue.username)"].  "</td></tr>";
+        }
+        while($rrow = mysqli_fetch_assoc($resultB)) {
+            echo "<tr><td>Febuary</td><td>" . $rrow["name"]. "</td><td>" . $rrow["count(issue.username)"].  "</td></tr>";
+        }
+        echo"</table>";
+        ?>
+
+    </body>
+
+</html>
             <section id="footer" class="main special">
             <span class="image fit primary"><img src="images/pic01.jpg" alt="" /></span>
                 <footer>

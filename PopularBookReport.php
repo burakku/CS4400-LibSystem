@@ -1,6 +1,8 @@
 <?php
     require_once('init.php');
-
+                  $resultA = $db->generatePopularBook();
+       //    $firstSubject =
+            $resultB = $db->generatePopularBookSecond();
 ?>
 
 <!DOCTYPE HTML>
@@ -16,7 +18,6 @@
         <script src="js/jquery.scrollex.min.js"></script>
         <script src="js/jquery.scrolly.min.js"></script>
         <script src="js/skel.min.js"></script>
-        <script src="js/init.js"></script>
         <noscript>
             <link rel="stylesheet" href="css/skel.css" />
             <link rel="stylesheet" href="css/style.css" />
@@ -25,30 +26,32 @@
     </head>
     <body>
 
-        <!-- Header -->
-            <section id="header">
-                <header class="major">
-                </header>
-                <div class="container">
-                    <h1>Popular Book Report</h1>
-                <div class="content">
-                    <table align='center' border='1'>
-                    <tr>
-                        <th align='center' width='200' height='20'>Month</th>
-                        <th align='center' width='200' height='20'>Title</th>
-                        <th align='center' width='200' height='20'>#CheckOut</th>
-                    </tr>
+<html>
+    <head>
+        <h1><br>Frequent User Report</br></h1>
+        </head>
+        <style>
+        table, th, td {
+     border: 1px solid black;}
+</style>
+    <body>
 
-                    <tr>
-                        <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>Title goes here</th>
-                        <th align='center' width='200' height='20'>#CheckOut books goes here</th>
-                    </tr>
+        <?php
 
-                    </table>
-            </div>
-            </div>
-            </section>
+
+        echo "<table><tr><th>Month</th><th>Subject</th><th>#Checkout</th></tr>";
+        while($row = mysqli_fetch_assoc($resultA)) {
+            echo " <tr><td>Janurary</td><td>" . $row["title"]. "</td><td>" . $row["count(issueid)"].  "</td></tr>";
+        }
+        while($rrow = mysqli_fetch_assoc($resultB)) {
+            echo "<tr><td>Febuary</td><td>" . $rrow["title"]. "</td><td>" . $rrow["count(issueid)"].  "</td></tr>";
+        }
+        echo"</table>";
+        ?>
+
+    </body>
+
+</html>
         
         <!-- Footer -->
             <section id="footer" class="main special">
