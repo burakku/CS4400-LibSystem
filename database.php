@@ -272,7 +272,7 @@
             $query = "
                 select floorid, aisleid, shelf.shelfid as shelfid, subname
                 from book join shelf on book.shelfid = shelf.shelfid
-                where isbn = $isbn
+                where isbn = '$isbn'
             ";
             $result = $this->doQuery($query);
             if(mysqli_error($this->connection))
