@@ -1,8 +1,20 @@
 <?php
     require_once('init.php');
+    $copy_num = $exp_date = null;
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        if(register_post_keys('issue_id')) {
-            $result;
+        if(isset($_POST['sub_isbn'])) {
+            if (register_post_keys('future_isbn')) {
+                $future_result = $db->get_future_book($future_isbn);
+                if($future_result){
+                    $row = mysqli_fetch_assoc($future_result);
+                    $copy_num = $row['copy_id'];
+                    $exp_date = $row['redate'];
+                }
+            }
+        }
+        if(isset($_POST['sub_hold'])){
+            $db->future_hold($copy_num, $future_isbn, $_SESSION['username'], $exp_date);
+            redirect('SearchBook.php');
         }
     }
 
@@ -36,10 +48,10 @@
                 </header>
                 <div class="container">
                     <h1>Future Hold Request for the Book</h1>
-                    <form method="post" action="NEXT" id="form">
+                    <form method="post" action="" id="form">
                         <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><input type="text" name="issue id" id="fname" placeholder="Enter ISBN here" /></div>
-                            <div class="6u$ 12u$(xsmall)"><input type="submit" value="Reqest" class="special" /></div>
+                            <div class="6u 12u$(xsmall)"><input type="text" name="future_isbn" id="fname" placeholder="Enter ISBN here" /></div>
+                            <div class="6u$ 12u$(xsmall)"><input type="submit" name="sub_isbn" value="Reqest" class="special" /></div>
                         </div>
                     </form>
                 </div>
@@ -51,14 +63,20 @@
                 <div class="content">
             <header class="major">
             </header>
-                    <form>
-                        Copy Number:<br>
-                        <a>Copy Number goes here</a>
-                        <br>
-                        Expected avaliable Date:<br>
-                        <a>Expected avaliable Date goes here</a>
-                        </form>
-                        <div class="12u$ 15u$(xsmall)"><input type="submit" value="OK" class="special" /></div>
+                    <?php
+                    if($_SERVER["REQUEST_METHOD"] == "POST" && $future_result) {
+                        echo '
+                        <form >
+                        Copy Number:<br >
+                        <a >'. $copy_num .'</a >
+                        <br >
+                        Expected avaliable Date:<br >
+                        <a >'. $exp_date .'</a >
+                        </form >
+                        <div class="12u$ 15u$(xsmall)" ><input type = "submit" name="sub_hold" value = "OK" class="special" /></div >
+                        ';
+                        }
+                    ?>
                 </div>
             </div>
             </section>

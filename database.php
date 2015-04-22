@@ -60,7 +60,7 @@
                     WHERE user.username = '$username'
                     ");
                     $row = mysqli_fetch_assoc($check);
-                    if($row['isdebarred'] && $row['isdebarred'] != '1') {
+                    if(!$row['isdebarred']) {
                         $_SESSION['hasprofile'] = false;
                     }
                     elseif($row['isdebarred'] == '1')
@@ -153,35 +153,72 @@
 
             $this->doQuery("
             INSERT INTO issue(username, issuedate, redate, copyid, isbn)
-            VALUES ('$username', CURDATE(), DATE_ADD(CURDATE(),INTERVAL 17 DAY), $copy_id, $isbn)
+            VALUES ('$username', CURDATE(), DATE_ADD(CURDATE(),INTERVAL 17 DAY), $copy_id, '$isbn')
             ");
             if(mysqli_error($this->connection))
                 die(mysqli_error($this->connection));
         }
 
-        function request_ext($issue_id)
-        {
-            if(!$_SESSION['isfaculty']){
-                $query = "
-                select issuedate
+        function get_issue_date($username, $issue_id){
+            $result = $this->doQuery("
+                select issuedate, extdate, redate
                 from issue join bookcopy on issue.isbn = bookcopy.isbn and issue.copyid = bookcopy.copyid
-                where ishold='0' and extcount <= 1 and issueid = '$issue_id'
-                ";
-            }
-            $query = "
-                SELECT title, book.isbn, edition, count(copyid) as 'copies available', min(copyid) as 'copy'
-                from book join bookcopy on book.isbn=bookcopy.isbn
-                where book.isbn='$isbn'
-                AND bookcopy.isdamage = '0'
-                AND bookcopy.ishold= '0'
-                AND bookcopy.ischeck = '0'
-                AND book.isreserve = '0'
-                group by book.isbn";
-
-            $result = $this->doQuery($query);
+                where ishold='0' and username = '$username' and extcount <= 1
+                and issueid = '$issue_id' and redate>=CURDATE() and ischeck= '1'
+                ");
             if(mysqli_error($this->connection))
                 die(mysqli_error($this->connection));
             return $result;
+        }
+
+        function request_ext($issue_id)
+        {
+            if(!$_SESSION['isfaculty']){
+                    $this->doQuery("
+                    update issue set extdate = CURDATE(), extcount=extcount+1, redate=least(DATE_ADD(CURDATE(), INTERVAL 14 DAY), DATE_ADD(issuedate, INTERVAL 28 DAY))
+                    where issueid='$issue_id' LIMIT 1
+                    ");
+                    if(mysqli_error($this->connection))
+                        die(mysqli_error($this->connection));
+            }
+            elseif($_SESSION['isfaculty']) {
+                $this->doQuery("
+                update issue set extdate = CURDATE(), extcount=extcount+1, redate=least(DATE_ADD(CURDATE(), INTERVAL 14 DAY), DATE_ADD(issuedate, INTERVAL 28 DAY))
+                where issueid='$issue_id' LIMIT 1
+                ");
+                if(mysqli_error($this->connection))
+                    die(mysqli_error($this->connection));
+            }
+        }
+
+        function get_future_book($isbn)
+        {
+            $result = $this->doQuery("
+            select issue.redate as 'redate', bookcopy.copyid as 'copy_id'
+            from issue join bookcopy on issue.isbn = bookcopy.isbn and issue.copyid = bookcopy.copyid
+            WHERE bookcopy.isbn = '$isbn' AND ischeck = '1' AND ishold='0' order by issue.redate limit 1
+            ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+            return $result;
+        }
+
+        function future_hold($copy_id, $isbn, $username, $redate)
+        {
+            $this->doQuery("
+            update bookcopy
+            set ishold = '1', requester = '$username'
+            where bookcopy.isbn = '$isbn' AND bookcopy.copyid = '$copy_id' LIMIT 1
+            ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+
+            $this->doQuery("
+            INSERT INTO issue(username, issuedate, redate, copyid, isbn)
+            VALUES ('$username', '$redate', DATE_ADD('$redate',INTERVAL 17 DAY), '$copy_id', '$isbn')
+            ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
         }
 
         function track_book($isbn)

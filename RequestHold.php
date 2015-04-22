@@ -12,6 +12,7 @@
     $book_result = $db->search_book($search_isbn, $search_title, $search_author);
     $curr_date = date('Y-m-d');
     $re_date = date('Y-m-d', strtotime("+17 days"));
+
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $request_isbn = $_POST['book_select'];
         $book_result = $db->search_book($search_isbn, $search_title, $search_author);
