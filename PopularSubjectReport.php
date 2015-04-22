@@ -1,6 +1,13 @@
 <?php
     require_once('init.php');
 
+
+        $result = $db->generatePopular();
+        $resultA = $db->generatePopular();
+       //    $firstSubject =
+        $resultSecond = $db->generatePopularSecond();
+        $resultB = $db->generatePopularSecond();
+
 ?>
 
 <!DOCTYPE HTML>
@@ -30,7 +37,7 @@
                 <header class="major">
                 </header>
                 <div class="container">
-                    <h1>Frequent User Report</h1>
+                    <h1>Popular Subject Report</h1>
                 <div class="content">
                     <table align='center' border='1'>
                     <tr>
@@ -40,27 +47,45 @@
                     </tr>
 
                     <tr>
-                        <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>Top Subject goes here</th>
-                        <th align='center' width='200' height='20'>#CheckOut books goes here</th>
+
+                        <th align='center' width='200' height='20'>January</th>
+                        <th align='center' width='200' height='20'><?php
+                                while ($row = mysqli_fetch_assoc($result)){
+                                         echo $row['subname'] . "<br />";
+
+                                    }
+                                 ?> </th>
+                        <th align='center' width='200' height='20'><?php
+                                while ($row = mysqli_fetch_assoc($resultA)){
+                                         echo $row['count(issueid)'] . "<br />";
+
+                                    }
+                                 ?>
+                         </th>
                     </tr>
 
-                    <tr>
-                        <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>Top Subject goes here</th>
-                        <th align='center' width='200' height='20'>#CheckOut books goes here</th>
-                    </tr>
+
 
                     <tr>
-                        <th align='center' width='200' height='20'>Month goes here</th>
-                        <th align='center' width='200' height='20'>Top Subject goes here</th>
-                        <th align='center' width='200' height='20'>#CheckOut books goes here</th>
+                        <th align='center' width='200' height='20'>February</th>
+                        <th align='center' width='200' height='20'><?php
+                                while ($row = mysqli_fetch_assoc($resultSecond)){
+                                         echo $row['subname'] . "<br />";
+
+                                    }
+                                 ?></th>
+                        <th align='center' width='200' height='20'><?php
+                                while ($row = mysqli_fetch_assoc($resultB)){
+                                         echo $row['count(issueid)'] . "<br />";
+
+                                    }
+                                 ?></th>
                     </tr>
                     </table>
             </div>
             </div>
             </section>
-        
+
         <!-- Footer -->
             <section id="footer" class="main special">
             <span class="image fit primary"><img src="images/pic01.jpg" alt="" /></span>
