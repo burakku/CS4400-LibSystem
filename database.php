@@ -46,16 +46,26 @@
         {
             if(!empty($password)) {
                 $result = $this->doQuery("
-                SELECT user.username, email
-                FROM user join studentfaculty on user.username = studentfaculty.username
-                WHERE user.username = '$username' AND password = '$password' AND studentfaculty.isdebarred = '0'");
+                SELECT username
+                FROM user
+                WHERE username = '$username' AND password = '$password'");
 
                 if (mysqli_error($this->connection))
                     die(mysqli_error($this->connection));
 
                 if (mysqli_num_rows($result)) {
-                    $row = mysqli_fetch_assoc($result);
-                    if($row["email"])
+                    $check = $this->doQuery("
+                    SELECT isdebarred
+                    FROM user join studentfaculty on user.username = studentfaculty.username
+                    WHERE user.username = '$username'
+                    ");
+                    $row = mysqli_fetch_assoc($check);
+                    if($row['isdebarred'] && $row['isdebarred'] != '1') {
+                        $_SESSION['hasprofile'] = false;
+                    }
+                    elseif($row['isdebarred'] == '1')
+                        return false;
+                    else
                         $_SESSION['hasprofile'] = true;
                     $_SESSION['isstaff'] = false;
                     return true;
@@ -94,7 +104,7 @@
             $query = "";
             if($isbn) {
                 $query = "
-                SELECT title, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
+                SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
                 from book join bookcopy on book.isbn=bookcopy.isbn
                 where book.isbn='$isbn' AND bookcopy.isdamage = '0'
                 AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0'
@@ -104,42 +114,49 @@
             elseif($title && empty($isbn) && empty($author))
             {
                 $query = "
-                SELECT title, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy' from book join bookcopy on book.isbn=bookcopy.isbn
-                where book.title='$title' AND bookcopy.isdamage = '0'
-                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0'
-                AND book.isreserve = '0' group by book.isbn
+                SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
+                from book join bookcopy on book.isbn=bookcopy.isbn
+                where book.title LIKE '%$title%' AND bookcopy.isdamage = '0'
+                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0' group by book.isbn
                 ";
             }
             elseif($author && empty($isbn) && empty($author))
             {
                 $query = "
-                SELECT title, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
-                from book join bookcopy on book.isbn=bookcopy.isbn
-                where book.author='$author' AND bookcopy.isdamage = '0'
-                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0'
-                AND book.isreserve = '0' group by book.isbn
+                SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as ‘copy’
+                from book join bookcopy on book.isbn=bookcopy.isbn join author on book.isbn = author.isbn
+                where author.author LIKE '%$author%' AND bookcopy.isdamage = '0'
+                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0' group by book.isbn
                 ";
             }
             elseif($title && $author && empty($isbn))
             {
                 $query = "
-                SELECT title, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
-                from book join bookcopy on book.isbn=bookcopy.isbn
-                where book.title='$title' AND book.author='$author'
-                and bookcopy.isdamage = '0' AND bookcopy.ishold= '0'
-                AND bookcopy.ischeck = '0' AND book.isreserve = '0' group by book.isbn
+                SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
+                from book join bookcopy on book.isbn=bookcopy.isbn join author on book.isbn = author.isbn
+                where author.author LIKE '%$author%' AND book.title LIKE '%$title%' AND bookcopy.isdamage = '0'
+                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0' group by book.isbn
                 ";
             }
             $result = $this->doQuery($query);
             return $result;
         }
 
-        function request_hold($username, $isbn)
+        function request_hold($username, $isbn, $copy_id)
         {
-            $result = $this->doQuery("
+            $this->doQuery("
             update bookcopy set ishold = '1', requester = '$username'
-            where bookcopy.isbn = '$isbn' AND bookcopy.copyid = ‘$copyid’ LIMIT 1
+            where bookcopy.isbn = '$isbn' AND bookcopy.copyid = '$copy_id' LIMIT 1
             ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
+
+            $this->doQuery("
+            INSERT INTO issue(username, issuedate, redate, copyid, isbn)
+            VALUES ('$username', CURDATE(), DATE_ADD(CURDATE(),INTERVAL 17 DAY), $copy_id, $isbn)
+            ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
         }
 
         function request_ext($issue_id)

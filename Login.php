@@ -14,10 +14,11 @@
             if($db->login($username, $password))
             {
                 $_SESSION['username'] = $username;
-                if(!$_SESSION['isstuff']) {
-                    if(!$_SESSION['hasprofile'])
+                if($_SESSION['isstaff'] == false) {
+                    if($_SESSION['hasprofile'] == false)
                         redirect('Profile.php');
                     else
+                        redirect('SearchBook.php');
                 }
             }
             else {

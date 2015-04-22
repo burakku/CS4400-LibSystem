@@ -1,5 +1,6 @@
 <?php
     require_once('init.php');
+    $copy_num = null;
     $search_isbn = $search_title = $search_author = null;
     if(isset($_SESSION["search_isbn"]))
         $search_isbn = $_SESSION["search_isbn"];
@@ -9,7 +10,19 @@
         $search_author = $_SESSION["search_author"];
 
     $book_result = $db->search_book($search_isbn, $search_title, $search_author);
-    if(isset())
+    $curr_date = date('Y-m-d');
+    $re_date = date('Y-m-d', strtotime("+17 days"));
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $request_isbn = $_POST['book_select'];
+        $book_result = $db->search_book($search_isbn, $search_title, $search_author);
+        while ($row = mysqli_fetch_assoc($book_result)) {
+            if($row['isbn'] == $request_isbn){
+                $copy_num = $row['copy'];
+            }
+        }
+        $db->request_hold($_SESSION['username'], $request_isbn, $copy_num);
+        redirect('SearchBook.php');
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -39,7 +52,7 @@
                 </header>
                 <div class="container">
                     <h1>Hold Request For a Book</h1>
-                    <form method="post" action="NEXT" id="form">
+                    <form method="post" action="" id="form">
                     <table align='center' border="1">
                         <tr>
                             <td>Select</td>
@@ -52,7 +65,7 @@
                         <tr>
                             <form>
                                 <?php
-                                    if(!empty($book_result)) {
+                                    if(mysqli_num_rows($book_result)) {
                                         while ($row = mysqli_fetch_assoc($book_result)) {
                                             echo '
                                             <tr>
@@ -70,16 +83,27 @@
                             </form>
                         </tr>
                     </table>
-                        <div class="row uniform">
-                            <div class="6u 12u$(xsmall)"><p>Hold Request Date goes here</p></div>
-                            <div class="6u$ 12u$(xsmall)"><p>Estimated Return Date goes here</p></div>
+                        <div id="section">
+                        <table align='center' border="1">
+                            <tr>
+                                <td>Hold Request Date</td>
+                                <td>Estimated Return Date</td>
+                            </tr>
+                            <?php
+                            echo '
+                            <tr>
+                                <td>'. $curr_date .'</td>
+                                <td>'. $re_date .'</td>
+                            </tr>';
+                            ?>
+                        </table>
                         </div>
                     <div class="12u$ 12u$">
                                 <ul class="actions">
                                    <a href=SearchBook.php onClick=”javascript :history.back(-1);”>Back</a>
                                 </ul>
                                 <ul class="actions">
-                                    <li><input type="submit" value="Submit" class="special" /></li>
+                                    <input type="submit" value="Submit" class="special" />
                                 </ul>
                                 <ul class="actions">
                                     <a href=index.php onClick=”javascript :history.back(-1);”>Close</a>
@@ -98,15 +122,29 @@
                     </header>
             <table align='center' border='1'>
         <tr>
-            <th align='center' width='200' height='20'>ISBN</th>
-            <th align='center' width='200' height='20'>Title of the Book</th>
-            <th align='center' width='200' height='20'>Edition</th>
-            <th align='center' width='200' height='20'>Copy#Avale</th></tr>
+            <td>ISBN</td>
+            <td>Title Of the Book</td>
+            <td>Edition</td>
+            <td>#Copies Avaliable</td></tr>
             <tr>
-            <th align='center' width='200' height='20'>ISBN goes here</th>
-            <th align='center' width='200' height='20'>title goes here</th>
-            <th align='center' width='200' height='20'>Edition goes here</th>
-            <th align='center' width='200' height='20'>#copy goes here</th></tr>
+                <?php
+                $book_result = $db->search_book($search_isbn, $search_title, $search_author);
+                if($book_result) {
+                    while ($row2 = mysqli_fetch_assoc($book_result)) {
+                        if($row2['isreserve'] == '1') {
+                            echo '
+                            <tr>
+                            <td>' . $row2["isbn"] . '</td>
+                            <td>' . $row2["title"] . '</td>
+                            <td>' . $row2["edition"] . '</td>
+                            <td>' . $row2["copies"] . '</td>
+                            </tr>';
+                        }
+                    }
+                }
+                else
+                    echo "<tr><td>No result</td></tr>";
+                ?></tr>
             </table>
             </div>
             </div>
