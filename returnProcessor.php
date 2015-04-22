@@ -50,7 +50,7 @@ mysql_close($link);
 
 <input type="Submit" value="Continue"/>
 </form>
-<a href="searchBook.php">Back</a>
+<a href="returnbook.php">Back</a>
 
 </body>
 </html>

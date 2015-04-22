@@ -17,7 +17,7 @@
 
 <input type="Submit" value="Continue"/>
 </form>
-<a href="searchBook.php">Back</a>
+<a href="staffhomepage.php">Back</a>
 
 </body>
 </html>
