@@ -1,5 +1,11 @@
 <?php
-require_once('init.php');
+$link = mysql_connect('academic-mysql.cc.gatech.edu', 'cs4400_Group_16', '1mmiyLhX'); 
+if (!$link) { 
+die('Could not connect: ' . mysql_error()); 
+} 
+mysql_select_db('cs4400_Group_16');
+
+session_start();
 
 $issueid = $_POST['issueid'];
 $username = $_SESSION['username'];
@@ -11,15 +17,15 @@ USING latin1 )
 COLLATE latin1_swedish_ci") or die (mysql_error());
 $num = mysql_num_rows($result);
 if ($num > 0) {
-    list($isbn, $copyno) = mysql_fetch_row($result);
+    list($isbn, $copyno, $copyid) = mysql_fetch_row($result);
     $issuedate = date('Y-m-d');
     $redate = date('Y-m-d', strtotime('+ 14 days'));
     echo "<br>Username: " . $username;
-    echo "<br>ISBN: " . $ISBN;
+    echo "<br>ISBN: " . $isbn;
     echo "<br>Copy Number: " . $copyid;
     echo "<br>Check Out Date: " . $issuedate;
     echo "<br>Expected Return Date: " . $redate;
-    $_SESSION['issueID'] = $issueID;
+    $_SESSION['issueID'] = $issueid;
     $_SESSION['issuedate'] = $issuedate;
     $_SESSION['redate'] = $redate;
     $_SESSION['isbn'] = $isbn;
