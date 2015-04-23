@@ -77,7 +77,7 @@
                     <?php
                     if($_SERVER["REQUEST_METHOD"] == "POST" && mysqli_num_rows($result_issue_date)) {
                         echo '
-                        <form>
+                        <form method="post" action="" id="form">
                             Original Checkout Date:<br>
                             <a>'. $ckout_date .'</a>
                             <br>
@@ -92,8 +92,8 @@
                             <br>
                             New Estimated Return Date:<br>
                             <a>'. $new_redate .'</a>
-                        </form>
-                        <div class="12u$ 12u$(xsmall)"><input type="submit" name="sub_ext" value="Submit" class="special" /></div>';
+                        <div class="12u$ 12u$(xsmall)"><input type="submit" name="sub_ext" value="Submit" class="special" />
+                        </form></div>';
                     }
                     ?>
                 </div>
