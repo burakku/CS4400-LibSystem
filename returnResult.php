@@ -36,7 +36,7 @@ mysql_close($link);
 <form name = "returnBookForm" action="returnResult.php" method="post">
 
 </form>
-<a href="searchBook.php">Back</a>
+<a href="SearchBook.php">Back</a>
 
 </body>
 </html>
