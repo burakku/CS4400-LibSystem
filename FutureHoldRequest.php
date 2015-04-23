@@ -8,12 +8,18 @@
                 if($future_result){
                     $row = mysqli_fetch_assoc($future_result);
                     $copy_num = $row['copy_id'];
-                    $exp_date = $row['redate'];
+                    $exp_date = date('Y-m-d', strtotime($row['redate']));
+                    $_SESSION['redate'] = $exp_date;
+                    $_SESSION['future_isbn'] = $future_isbn;
+                    $_SESSION['copy_num'] = $copy_num;
                 }
             }
         }
         if(isset($_POST['sub_hold'])){
-            $db->future_hold($copy_num, $future_isbn, $_SESSION['username'], $exp_date);
+            $db->future_hold($_SESSION['copy_num'], $_SESSION['future_isbn'], $_SESSION['username'], $_SESSION['redate']);
+            unset($_SESSION['copy_num']);
+            unset($_SESSION['future_isbn']);
+            unset($_SESSION['redate']);
             redirect('userHomePage.php');
         }
     }
@@ -66,14 +72,14 @@
                     <?php
                     if($_SERVER["REQUEST_METHOD"] == "POST" && $future_result) {
                         echo '
-                        <form >
+                        <form method="post" action="" id="form">
                         Copy Number:<br >
                         <a >'. $copy_num .'</a >
                         <br >
                         Expected avaliable Date:<br >
                         <a >'. $exp_date .'</a >
-                        </form >
                         <div class="12u$ 15u$(xsmall)" ><input type = "submit" name="sub_hold" value = "OK" class="special" /></div >
+                        </form >
                         ';
                         }
                     ?>
