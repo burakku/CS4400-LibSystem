@@ -12,7 +12,7 @@ $issuedate= $_SESSION['issuedate'];
 $redate = $_SESSION['redate'];
 $isbn = $_SESSION['isbn'];
 $copyid = $_SESSION['copyid'];
-if(isset($issueID) && isset($issuedate) && isset($redate) && isset($ISBN) && isset($copyid)){
+if(isset($issueid)){
 	echo "<br>ISBN: ".$isbn;
 	echo "<br>Copy Number: ".$copyid;
 	echo "<br>Check Out Date: ".$issuedate;
@@ -20,7 +20,9 @@ if(isset($issueID) && isset($issuedate) && isset($redate) && isset($ISBN) && iss
 	if(mysql_query("update bookcopy set ishold='0', requester = NULL, ischeck = '1' where isbn = '$isbn' and copyid='$copyid'"))
 		echo "<br> Book copy is successfully updated.";
 
-	if(mysql_query("update issue set issuedate=CURDATE(), redate=DATE_ADD(CURDATE(), INTERVAL 14 DAY) where issueid=’$issueid’"))
+	if(mysql_query("update issue set issuedate=CURDATE(), redate=DATE_ADD(CURDATE(), INTERVAL 14 DAY) where issueid= CONVERT( _utf8 '$issueid'
+USING latin1 ) 
+COLLATE latin1_swedish_ci"));
 		echo "<br>Issue is successfully updated";
 }else{
 	echo "Operation fails.";
