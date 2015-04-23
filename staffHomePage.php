@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="container">
                         <div class="row uniform">
                             <div class="6u 12u$(xsmall)"><a href="checkOutBook.php">Check Out Book</a></div>
-                            <div class="6u 12u$(xsmall)"><a href="returnBook.php">Return Book</a></div>
+                            <div class="6u 12u$(xsmall)"><a href="ReturnBook.php">Return Book</a></div>
                             <div class="6u 12u$(xsmall)"><a href="penaltyCharge.php">Penalty Charge</a></div>
                             <div class="6u 12u$(xsmall)"><a href="DamagedBookReport.php">Damaged Book Report</a></div>
                             <div class="6u 12u$(xsmall)"><a href="FrequentUserReport.php">Frequent User Report</a></div>
