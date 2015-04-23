@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2139b8a0-9fd2-46fe-a60c-2f57cc631da2" name="Default" comment="update">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/database.php.BACKUP.2404.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/database.php.BACKUP.2508.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/database.php.BASE.2404.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/database.php.BASE.2508.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/database.php.REMOTE.2404.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/database.php.REMOTE.2508.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DamagedBookReport.php" afterPath="$PROJECT_DIR$/DamagedBookReport.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Login.php" afterPath="$PROJECT_DIR$/Login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/penaltyCharge.php" afterPath="$PROJECT_DIR$/penaltyCharge.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/staffHomePage.php" afterPath="$PROJECT_DIR$/staffHomePage.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userHomePage.php" afterPath="$PROJECT_DIR$/userHomePage.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CheckOutProcessor.php" afterPath="$PROJECT_DIR$/CheckOutProcessor.php" />
     </list>
     <ignored path="LibSystem.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -124,8 +114,8 @@
       <file leaf-file-name="DamagedBookReport.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DamagedBookReport.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="36.583332" vertical-offset="893" max-vertical-offset="1650">
-              <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+            <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="1650">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -148,12 +138,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userHomePage.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="userHomePage.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/userHomePage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9511229" vertical-offset="0" max-vertical-offset="990">
-              <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+            <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="990">
+              <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckOutProcessor.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CheckOutProcessor.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.45574635" vertical-offset="0" max-vertical-offset="765">
+              <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+              <folding>
+                <marker date="1429743165000" expanded="true" signature="146:453" placeholder="select usern..issue..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -193,6 +195,7 @@
         <option value="$PROJECT_DIR$/DamagedBookReport.php" />
         <option value="$PROJECT_DIR$/staffHomePage.php" />
         <option value="$PROJECT_DIR$/userHomePage.php" />
+        <option value="$PROJECT_DIR$/CheckOutProcessor.php" />
       </list>
     </option>
   </component>
@@ -729,14 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DamagedBookReport.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="36.583332" vertical-offset="893" max-vertical-offset="1650">
-          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/damageBookResult.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1320">
@@ -806,9 +801,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/userHomePage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9511229" vertical-offset="0" max-vertical-offset="990">
-          <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+        <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="990">
+          <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DamagedBookReport.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="1650">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CheckOutProcessor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45574635" vertical-offset="0" max-vertical-offset="765">
+          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+          <folding>
+            <marker date="1429743165000" expanded="true" signature="146:453" placeholder="select usern..issue..." />
+          </folding>
         </state>
       </provider>
     </entry>
