@@ -5,6 +5,8 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(register_post_keys('search_isbn') || register_post_keys('search_title') || register_post_keys('search_author'))
         {
+            register_post_keys('search_title');
+            register_post_keys('search_author');
             //if($search_isbn)
                 $_SESSION["search_isbn"] = $search_isbn;
             //if($search_title)

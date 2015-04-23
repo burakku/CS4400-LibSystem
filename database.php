@@ -104,43 +104,32 @@
 
         function search_book($isbn, $title, $author)
         {
-            $query = "";
-            if($isbn) {
-                $query = "
-                SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
+            echo $isbn.$title.$author;
+            $query = "
+            SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
                 from book join bookcopy on book.isbn=bookcopy.isbn
-                where book.isbn='$isbn' AND bookcopy.isdamage = '0'
-                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0'
-                AND book.isreserve = '0' group by book.isbn
+                where bookcopy.isdamage = '0' AND bookcopy.ishold= '0'
+                AND bookcopy.ischeck = '0' AND book.isreserve = '0'
+                ";
+
+            if($isbn) {
+                $query .= "
+                AND book.isbn='$isbn'
             ";
             }
-            elseif($title && empty($isbn) && empty($author))
+            if($title)
             {
-                $query = "
-                SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
-                from book join bookcopy on book.isbn=bookcopy.isbn
-                where book.title LIKE '%$title%' AND bookcopy.isdamage = '0'
-                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0' group by book.isbn
+                $query .= "
+                AND book.title LIKE '%$title%'
                 ";
             }
-            elseif($author && empty($isbn) && empty($author))
+            if($author)
             {
                 $query = "
-                SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as ‘copy’
-                from book join bookcopy on book.isbn=bookcopy.isbn join author on book.isbn = author.isbn
-                where author.author LIKE '%$author%' AND bookcopy.isdamage = '0'
-                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0' group by book.isbn
+                AND author.author LIKE '%$author%'
                 ";
             }
-            elseif($title && $author && empty($isbn))
-            {
-                $query = "
-                SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
-                from book join bookcopy on book.isbn=bookcopy.isbn join author on book.isbn = author.isbn
-                where author.author LIKE '%$author%' AND book.title LIKE '%$title%' AND bookcopy.isdamage = '0'
-                AND bookcopy.ishold= '0' AND bookcopy.ischeck = '0' group by book.isbn
-                ";
-            }
+            $query .= " group by book.isbn;";
             $result = $this->doQuery($query);
             return $result;
         }

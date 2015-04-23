@@ -66,7 +66,7 @@
                         <tr>
                             <form>
                                 <?php
-                                    if(mysqli_num_rows($book_result)) {
+                                    if($book_result) {
                                         while ($row = mysqli_fetch_assoc($book_result)) {
                                             echo '
                                             <tr>
