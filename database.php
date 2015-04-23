@@ -297,5 +297,14 @@
             return $result;
 
         }
+
+        function checkOut($issueid){
+            $result = $this->doQuery("
+            select username, issue.copyid, issuedate, issue.isbn
+            from issue join bookcopy on bookcopy.isbn=issue.isbn and bookcopy.copyid=issue.copyid
+            where issueid = '$issueid'
+            ");
+            return $result;
+        }
 	}
 ?>

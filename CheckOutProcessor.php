@@ -1,21 +1,13 @@
 <?php
-$link = mysql_connect('academic-mysql.cc.gatech.edu', 'cs4400_Group_16', '1mmiyLhX'); 
-if (!$link) { 
-die('Could not connect: ' . mysql_error()); 
-} 
-mysql_select_db('cs4400_Group_16');
-
-session_start();
+require_once('init.php');
 
 $issueid = $_POST['issueid'];
 $username = $_SESSION['username'];
 echo "<br>staffname:$username . ";
-$result = mysql_query("select username, issue.copyid, issuedate, issue.isbn from issue join bookcopy on bookcopy.isbn=issue.isbn and bookcopy.copyid=issue.copyid where issueid  = CONVERT( _utf8 '$issueid'
-USING latin1 ) 
-COLLATE latin1_swedish_ci") or die (mysql_error());
-$num = mysql_num_rows($result);
+$result = $db->checkOut($issueid);
+$num = mysqli_num_rows($result);
 if ($num > 0) {
-    list($username, $isbn, $copyno, $copyid) = mysql_fetch_row($result);
+    list($username, $isbn, $copyno, $copyid) = mysqli_fetch_row($result);
     $issuedate = date('Y-m-d');
     $redate = date('Y-m-d', strtotime('+ 14 days'));
     echo "<br>Username: " . $username;
@@ -23,7 +15,7 @@ if ($num > 0) {
     echo "<br>Copy Number: " . $isbn;
     echo "<br>Check Out Date: " . $issuedate;
     echo "<br>Expected Return Date: " . $redate;
-    $_SESSION['issueID'] = $issueid;
+    $_SESSION['issueid'] = $issueid;
     $_SESSION['issuedate'] = $issuedate;
     $_SESSION['redate'] = $redate;
     $_SESSION['isbn'] = $isbn;
