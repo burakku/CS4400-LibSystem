@@ -1,4 +1,5 @@
 <?php
+<<<<<<< Updated upstream
 $link = mysql_connect('academic-mysql.cc.gatech.edu', 'cs4400_Group_16', '1mmiyLhX'); 
 if (!$link) { 
 die('Could not connect: ' . mysql_error()); 
@@ -7,6 +8,10 @@ mysql_select_db('cs4400_Group_16');
 
 session_start();
 
+=======
+require_once('init.php');
+echo var_dump($_POST['issueid']);
+>>>>>>> Stashed changes
 $issueid = $_POST['issueid'];
 $username = $_SESSION['username'];
 echo $username . '----';
