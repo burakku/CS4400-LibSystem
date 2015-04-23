@@ -10,17 +10,20 @@ session_start();
 $damagedCondition = $_POST['damagedCondition']; 
 $isbn = $_SESSION['isbn'] ;
 $copyid = $_SESSION['copyid'];
-if($damagedCondition = 'Y'){
+if($damagedCondition == 'Y'){
 	$isdamage = 1;
 	echo "<br>The book is damaged. Penalty will be charged.";
 }else{
 	$isdamage = 0;
+	echo"<br>The book is fine.";
 }
 if(mysql_query("UPDATE bookcopy
-SET ischeck = '0', isdamage = '$isdamage' WHERE isbn = '$isbn' AND copyid = '$copyid'") or die (mysql_error()))
+SET ischeck = '0', isdamage = '$isdamage' WHERE isbn = '$isbn' AND copyid = '$copyid'") or die (mysql_error())){
 	echo "<br>Book is successfully returned.";
-else
-	echo "<br>Operation failed.";
+}else {
+echo "<br>Operation failed.";
+}
+	
 unset($_SESSION['isbn']);
 unset($_SESSION['copyid']);
 mysql_close($link); 
@@ -36,7 +39,7 @@ mysql_close($link);
 <form name = "returnBookForm" action="returnResult.php" method="post">
 
 </form>
-<a href="staffHomePage.php">Back</a>
+<a href="SearchBook.php">Back</a>
 
 </body>
 </html>
