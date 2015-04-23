@@ -8,6 +8,7 @@ echo 'Connected successfully----';
 
 session_start();
 $issueid = $_POST['issueid']; 
+$_SESSION['issueid'] = $issueid;
 $result = mysql_query("SELECT  `isbn` ,  `username` ,  `copyid` , 'redate' 
 						FROM  `issue` 
 						WHERE  `issueid` = CONVERT( _utf8 '$issueid'
@@ -46,7 +47,6 @@ mysql_close($link);
 	</section>
 </tr>
 
-</table>
 
 <input type="Submit" value="Continue"/>
 </form>
