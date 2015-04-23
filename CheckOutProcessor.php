@@ -7,7 +7,7 @@ echo "<br>staffname:$username . ";
 $result = $db->checkOut($issueid);
 $num = mysqli_num_rows($result);
 if ($num > 0) {
-    list($username, $isbn, $copyno, $copyid) = mysqli_fetch_row($result);
+    list($username, $copyid, $issuedate, $isbn) = mysqli_fetch_row($result);
     $issuedate = date('Y-m-d');
     $redate = date('Y-m-d', strtotime('+ 14 days'));
     echo "<br>Username: " . $username;

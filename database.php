@@ -304,7 +304,18 @@
             from issue join bookcopy on bookcopy.isbn=issue.isbn and bookcopy.copyid=issue.copyid
             where issueid = '$issueid'
             ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
             return $result;
+        }
+
+        function doCheckOut($isbn, $copyid){
+            echo $isbn.$copyid;
+            $this->doQuery("
+            update bookcopy set ishold='0', requester = NULL, ischeck = '1' where isbn = '$isbn' and copyid='$copyid'
+            ");
+            if(mysqli_error($this->connection))
+                die(mysqli_error($this->connection));
         }
 	}
 ?>
