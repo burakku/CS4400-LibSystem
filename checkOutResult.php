@@ -30,7 +30,7 @@ unset($_SESSION['copyid']);
 
 <h1>CheckOut</h1>
 
-<a href="searchBook.php">Back</a>
+<a href="staffHomePage.php">Back</a>
 
 
 </body>

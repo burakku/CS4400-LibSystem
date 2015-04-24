@@ -75,7 +75,7 @@
             <header class="major">
             </header>
                     <?php
-                    if($_SERVER["REQUEST_METHOD"] == "POST" && mysqli_num_rows($result_issue_date)) {
+                    if($_SERVER["REQUEST_METHOD"] == "POST" && $result_issue_date) {
                         echo '
                         <form method="post" action="" id="form">
                             Original Checkout Date:<br>

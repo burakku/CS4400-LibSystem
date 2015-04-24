@@ -15,7 +15,7 @@
 </table>
 
 <input type="Submit" value="Continue"/>
-<a href="searchBook.php">Back</a>
+<a href="staffHomePage.php">Back</a>
 
 </form>
 

@@ -35,7 +35,7 @@ if ($num > 0) {
 <form name="CheckOut" action="checkOutResult.php" method="post">
     <input type="Submit" value="Continue to check out"/>
 </form>
-<a href="searchBook.php">Back</a>
+<a href="staffHomePage.php">Back</a>
 
 
 </body>

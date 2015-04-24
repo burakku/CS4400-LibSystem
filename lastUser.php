@@ -30,15 +30,15 @@ LIMIT 1"
 	}
 	$num = mysql_num_rows($result);
 	if ($num > 0) {
-		list($username,$redate,$cost) = mysql_fetch_row($result);
+		list($username,$cost,$redate) = mysql_fetch_row($result);
 		$_SESSION['lastUser'] = $username;
 				$result2 = mysql_query("SELECT penalty,username FROM `studentfaculty` where username= CONVERT( _utf8 '$username'
 								USING latin1 ) 
 								COLLATE latin1_swedish_ci");
 		list($penalty) = mysql_fetch_row($result2);
-		$penalty = $penalty +0.5*$cost;
+		$penalty2 = $penalty +0.5*$cost;
 		echo "<br>The last one checked out this book is: ".$username;
-		echo "<br>The penality should be:".$penalty;
+		echo "<br>The penality should be:".$penalty2;
 	}else{
 		echo "<br>No user is found.";
 	}

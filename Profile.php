@@ -85,10 +85,11 @@
                             <div id="div1" style="display:none">
                                 <select name='dept'>
                                 <option value='Question'>Associated Department</option>
-                                <option value='1'>D1</option>
-                                <option value='2'>D2</option>
-                                <option value='3'>D3</option>
-                                <option value='4'>D4</option>
+                                <option value='Industrial Engineering'>Industrial Engineering</option>
+                                <option value='Computer Science'>Computer Science</option>
+                                <option value='Media'>Media</option>
+                                <option value='French'>French</option>
+								<option value='English'>English</option>
                             </select>
                             </div>
                             <div class="12u$">
