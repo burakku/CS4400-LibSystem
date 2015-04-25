@@ -104,7 +104,6 @@
 
         function search_book($isbn, $title, $author)
         {
-            echo $isbn.$title.$author;
             $query = "
             SELECT title, isreserve, book.isbn, edition, count(copyid) as 'copies', min(copyid) as 'copy'
                 from book join bookcopy on book.isbn=bookcopy.isbn
